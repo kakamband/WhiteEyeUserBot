@@ -6,14 +6,15 @@ Available Commands:
 
 import asyncio
 import os
-from WhiteEyeUserBot.server import ImageDL
 from datetime import datetime
+
 import requests
 from bs4 import BeautifulSoup
-from google_images_download import google_images_download
 from selenium import webdriver
+
 from WhiteEyeUserBot import CMD_HELP
-from WhiteEyeUserBot.utils import edit_or_reply, WhiteEye_on_cmd, sudo_cmd
+from WhiteEyeUserBot.server import ImageDL
+from WhiteEyeUserBot.utils import WhiteEye_on_cmd, edit_or_reply, sudo_cmd
 
 
 def progress(current, total):
@@ -63,8 +64,8 @@ async def _(event):
     start = datetime.now()
     await event.edit("Processing ...")
     input_str = event.pattern_match.group(1)
-    if not os.path.isdir('./img/'):
-        os.makedirs('./img/')
+    if not os.path.isdir("./img/"):
+        os.makedirs("./img/")
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument("--test-type")
@@ -73,7 +74,7 @@ async def _(event):
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.binary_location = Config.GOOGLE_CHROME_BIN
     driver = webdriver.Chrome(chrome_options=chrome_options)
-    f = './img/'
+    f = "./img/"
     starkm = ImageDL(driver)
     arr = starkm.GoogleImageDL(input_str, 5, f)
     hehe = os.listdir(arr)
@@ -84,7 +85,7 @@ async def _(event):
             caption=input_str,
             reply_to=event.message.id,
             progress_callback=progress,
-            )
+        )
     for each_file in arr:
         os.remove(each_file)
     end = datetime.now()
