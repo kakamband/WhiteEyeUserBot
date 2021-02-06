@@ -8,7 +8,7 @@ from WhiteEyeUserBot.utils import register
 
 @register(outgoing=True, pattern=r"^\.google (.*)")
 async def gsearch(q_event):
-    if event.fwd_from:
+    if q_event.fwd_from:
         return
     """ For .google command, do a Google search. """
     match = q_event.pattern_match.group(1)
