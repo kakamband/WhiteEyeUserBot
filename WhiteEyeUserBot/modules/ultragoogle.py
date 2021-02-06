@@ -6,14 +6,14 @@ Available Commands:
 
 import asyncio
 import os
+from WhiteEyeUserBot.server import ImageDL
 from datetime import datetime
-
 import requests
 from bs4 import BeautifulSoup
 from google_images_download import google_images_download
-
+from selenium import webdriver
 from WhiteEyeUserBot import CMD_HELP
-from WhiteEyeUserBot.utils import WhiteEye_on_cmd, edit_or_reply, sudo_cmd
+from WhiteEyeUserBot.utils import edit_or_reply, WhiteEye_on_cmd, sudo_cmd
 
 
 def progress(current, total):
@@ -63,32 +63,29 @@ async def _(event):
     start = datetime.now()
     await event.edit("Processing ...")
     input_str = event.pattern_match.group(1)
-    response = google_images_download.googleimagesdownload()
-    if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
-        os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
-    arguments = {
-        "keywords": input_str,
-        "limit": Config.TG_GLOBAL_ALBUM_LIMIT,
-        "format": "jpg",
-        "delay": 1,
-        "safe_search": True,
-        "output_directory": Config.TMP_DOWNLOAD_DIRECTORY,
-    }
-    paths = response.download(arguments)
-    logger.info(paths)
-    lst = paths[0].get(input_str)
-    if len(lst) == 0:
-        await event.delete()
-        return
-    await borg.send_file(
-        event.chat_id,
-        lst,
-        caption=input_str,
-        reply_to=event.message.id,
-        progress_callback=progress,
-    )
-    logger.info(lst)
-    for each_file in lst:
+    if not os.path.isdir('./img/'):
+        os.makedirs('./img/')
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--test-type")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.binary_location = Config.GOOGLE_CHROME_BIN
+    driver = webdriver.Chrome(chrome_options=chrome_options)
+    f = './img/'
+    starkm = ImageDL(driver)
+    arr = starkm.GoogleImageDL(input_str, 5, f)
+    hehe = os.listdir(arr)
+    for h in hehe:
+        await borg.send_file(
+            event.chat_id,
+            h,
+            caption=input_str,
+            reply_to=event.message.id,
+            progress_callback=progress,
+            )
+    for each_file in arr:
         os.remove(each_file)
     end = datetime.now()
     ms = (end - start).seconds
@@ -100,7 +97,7 @@ async def _(event):
     await event.delete()
 
 
-@WhiteEye.on(WhiteEye_on_cmd(pattern="grs"))
+@WhiteEye.on(friday_on_cmd(pattern="grs"))
 async def _(event):
     if event.fwd_from:
         return
@@ -153,7 +150,6 @@ async def _(event):
         ms = (end - start).seconds
         OUTPUT_STR = """{img_size}
 **Possible Related Search**: <a href="{prs_url}">{prs_text}</a>
-
 More Info: Open this <a href="{the_location}">Link</a> in {ms} seconds""".format(
             **locals()
         )
@@ -162,8 +158,12 @@ More Info: Open this <a href="{the_location}">Link</a> in {ms} seconds""".format
 
 CMD_HELP.update(
     {
-        "ultragoogle": "UltraGoogle\
-\n\nSyntax : .search<text>, .image<text>, .grs<text>\
-\nUsage : A Searching Plugin by google"
+        "ultragoogle": "**Ultra Google**\
+\n\n**Syntax : **`.search <query>`\
+\n**Usage :** Searches your query in Google and gets results.\
+\n\n**Syntax : **`.image <query>`\
+\n**Usage :** Searches your query in Google and gets image results.\
+\n\n**Syntax : **`.grs <reply to image>`\
+\n**Usage :** Reverse searches given image in Google."
     }
 )
