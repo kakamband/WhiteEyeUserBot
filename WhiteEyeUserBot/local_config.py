@@ -44,6 +44,7 @@ class Config(object):
 class Development(Config):
     LOGGER = True
 
+
 #    WhiteEye - UserBot
 #    Copyright (C) 2020 WhiteEye
 
@@ -282,4 +283,4 @@ elif ENV:
         )
         TESSDATA_PREFIX = os.environ.get(
             "TESSDATA_PREFIX", "/usr/share/tesseract-ocr/4.00/tessdata"
-        )    
+        )
