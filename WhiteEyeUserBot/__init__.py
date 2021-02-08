@@ -37,7 +37,6 @@ Lastupdate = time.time()
 sedprint = logging.getLogger("WARNING")
 from WhiteEyeUserBot.Configs import Config
 
-
 # All Clients - 3
 
 if Config.STRING_SESSION:
@@ -47,11 +46,15 @@ else:
     session_name = "startup"
     bot = TelegramClient(session_name, Config.APP_ID, Config.API_HASH)
 if Config.STRING_SESSION_2:
-    client2 =  TelegramClient(StringSession(Config.STRING_SESSION_2), Config.APP_ID, Config.API_HASH)
+    client2 = TelegramClient(
+        StringSession(Config.STRING_SESSION_2), Config.APP_ID, Config.API_HASH
+    )
 else:
     client2 = None
 if Config.STRING_SESSION_3:
-    client3 =  TelegramClient(StringSession(Config.STRING_SESSION_3), Config.APP_ID, Config.API_HASH)
+    client3 = TelegramClient(
+        StringSession(Config.STRING_SESSION_3), Config.APP_ID, Config.API_HASH
+    )
 else:
     client3 = None
 
@@ -212,8 +215,8 @@ else:
         sedlyf = wget.download(link, out=pathz)
     except:
         sedprint.info("I Wasn't Able To Download Cafee Model. Skipping.")
-        
-        
+
+
 # Nospam+ Client
 if Config.NOSPAMPLUS_TOKEN == None:
     sclient = None
@@ -225,7 +228,7 @@ else:
         sclient = None
         sedprint.info("[Warning] - " + str(e))
 
-# Avoid Doing This Again And Again In Plugins.        
+# Avoid Doing This Again And Again In Plugins.
 try:
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
