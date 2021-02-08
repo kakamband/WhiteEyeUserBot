@@ -18,56 +18,63 @@
 import logging
 from pathlib import Path
 from sys import argv
-
+import os
 import telethon.utils
 from telethon import TelegramClient
-from telethon.tl.types import InputMessagesFilterDocument
-
-from WhiteEyeUserBot import bot, client2, client3
+from telethon import __version__ as tv
+import sys
+import platform
+from WhiteEyeUserBot import bot, client2, client3, WhiteEye_version
 from WhiteEyeUserBot.Configs import Config
-from WhiteEyeUserBot.utils import load_module, load_module_dclient, start_assistant
+from telethon.tl.types import InputMessagesFilterDocument
+from WhiteEyeUserBot.utils import load_module, start_assistant, load_module_dclient
+from WhiteEyeUserBot.Configs import Config
 
-sed = logging.getLogger("WhiteEye")
-
-
+WhiteEyedevs = logging.getLogger("WhiteEye")
+        
 async def add_bot(bot_token):
     await bot.start(bot_token)
     bot.me = await bot.get_me()
     bot.uid = telethon.utils.get_peer_id(bot.me)
-
+   
+        
+# Bleck Megic         
+async def check_inline_on_warner(ws):
+    w_s = await ws.get_me()
+    if not w_s.bot_inline_placeholder:
+        WhiteEyedevs.info("Warning : WhiteEye Has Detected That You Have Not Turned On Inline Mode For Your Assistant Bot, Please Go To @BotFather And Enable This.")
+    return
 
 async def lol_s(client):
     client.me = await client.get_me()
     client.uid = telethon.utils.get_peer_id(client.me)
-
-
+    
 def multiple_client():
     if client2:
-        sed.info("Starting Client 2")
+        WhiteEyedevs.info("Starting Client 2")
         try:
-            sedbruh = None
+            warnerstark = None
             client2.start()
             client2.loop.run_until_complete(lol_s(client2))
         except:
-            sedbruh = True
-            sed.info("Client 2 Failed To Load. Check Your String.")
+            warnerstark = True
+            WhiteEyedevs.info("Client 2 Failed To Load. Check Your String.")
     if client3:
-        sed.info("Starting Client 3")
+        WhiteEyedevs.info("Starting Client 3")
         try:
-            lmaobruh = None
+            chutiya = None
             cleint3.start
             client3.loop.run_until_complete(lol_s(client3))
         except:
-            lmaobruh = True
-            sed.info("Client 3 Failed To Load.")
+            chutiya = True
+            WhiteEyedevs.info("Client 3 Failed To Load.")
     if not client2:
-        sedbruh = True
+        warnerstark = True
     if not client3:
-        lmaobruh = True
-    return sedbruh, lmaobruh
+        chutiya = True
+    return warnerstark, chsaiujwal    
 
-
-async def get_other_plugins(Config, client_s, sed):
+async def get_other_plugins(Config, client_s, WhiteEyedevs):
     try:
         a_plugins = await client_s.get_messages(
             entity=Config.LOAD_OTHER_PLUGINS_CHNNL,
@@ -76,49 +83,50 @@ async def get_other_plugins(Config, client_s, sed):
             search=".py",
         )
     except:
-        sed.info("Failed To Other Modules :(")
+        WhiteEyedevs.info("Failed To Other Modules :(")
         return
-    sed.info(f"Downloading. {int(a_plugins.total)} Plugins !")
-    for keky in a_plugins:
-        await client_s.download_media(keky.media, "WhiteEyeUserBot  /modules/")
-    sed.info("Extra Plugins Downloaded.")
-
+    for meisnub in a_plugins:
+        hmm = meisnub.media.document.attributes[-1].file_name
+        pathh = "WhiteEyeUserBot/modules/"
+        if os.path.exists(os.path.join(pathh, hmm)):
+            pass
+        else:
+            await client_s.download_media(meisnub.media, "WhiteEyeUserBot/modules/")
+    fridaydevs.info("Extra Plugins Downloaded.")
 
 if len(argv) not in (1, 3, 4):
     bot.disconnect()
 else:
     bot.tgbot = None
-    if Config.TG_BOT_USER_NAME_BF_HER is not None:
+    if Config.TG_BOT_TOKEN_BF_HER is not None:
         bot.tgbot = TelegramClient(
             "TG_BOT_TOKEN", api_id=Config.APP_ID, api_hash=Config.API_HASH
         ).start(bot_token=Config.TG_BOT_TOKEN_BF_HER)
         failed2, failed3 = multiple_client()
-        bot.loop.run_until_complete(add_bot(Config.TG_BOT_USER_NAME_BF_HER))
+        bot.loop.run_until_complete(add_bot("RnJpZGF5VXNlckJvdCBpcyBCZXN0"))
     else:
-        bot.start()
+        bot.loop.run_until_complete(add_bot("RnJpZGF5VXNlckJvdCBpcyBCZXN0"))
         failed2, failed3 = multiple_client()
 
 if Config.LOAD_OTHER_PLUGINS:
-    bot.loop.run_until_complete(get_other_plugins(Config, bot, sed))
-
+        bot.loop.run_until_complete(get_other_plugins(Config, bot, WhiteEyedevs))
+        
 import glob
 
 path = "WhiteEyeUserBot/modules/*.py"
 files = glob.glob(path)
+failed_warner = 0
 for name in files:
     with open(name) as f:
         path1 = Path(f.name)
         shortname = path1.stem
         try:
-            load_module(shortname.replace(".py", ""))
+            load_module(shortname.replace(".py", ""))    
         except Exception as e:
-            sed.info("------------------------")
-            sed.info(
-                "Failed To Load : "
-                + str(shortname.replace(".py", ""))
-                + f" Error : {str(e)}"
-            )
-            sed.info("------------------------")
+            failed_warner += 1
+            fridaydevs.info("------------------------")
+            fridaydevs.info("Failed To Load : " + str(shortname.replace(".py", "")) + f" Error : {str(e)}")
+            fridaydevs.info("------------------------")
         if failed2 is None:
             try:
                 load_module_dclient(shortname.replace(".py", ""), client2)
@@ -138,18 +146,27 @@ if Config.ENABLE_ASSISTANTBOT == "ENABLE":
             path1 = Path(f.name)
             shortname = path1.stem
             start_assistant(shortname.replace(".py", ""))
-    sed.info(
-        """\n██╗    ██╗██╗  ██╗██╗████████╗███████╗███████╗██╗   ██╗███████╗    
-██║    ██║██║  ██║██║╚══██╔══╝██╔════╝██╔════╝╚██╗ ██╔╝██╔════╝    
-██║ █╗ ██║███████║██║   ██║   █████╗  █████╗   ╚████╔╝ █████╗      
-██║███╗██║██╔══██║██║   ██║   ██╔══╝  ██╔══╝    ╚██╔╝  ██╔══╝      
-╚███╔███╔╝██║  ██║██║   ██║   ███████╗███████╗   ██║   ███████╗    
- ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝   ╚═╝   ╚══════╝╚══════╝   ╚═╝   ╚══════╝    """
-    )
+    wsta = "WhiteEye And Assistant Bot Have Been Installed Successfully !"
 else:
+    wsta = "WhiteEye Has Been Installed Sucessfully"
 
-    sed.info("WhiteEye Has Been Installed Sucessfully !")
-    sed.info("You Can Visit @WhiteEyeDevs For Any Support Or Doubts")
+total_clients = 1
+if failed2 is None:
+    total_clients += 1
+if failed3 is None:
+    total_clients += 1
+
+fridaydevs.info(f"""{wsta}
+-------------------------------------------
+WhiteEyeUserBot Based On Telethon V{tv}
+Python Version : {platform.python_version()}
+WhiteEyeUserBot Version : V{WhiteEye_version}
+Support Chat : @WhiteEyeDevs
+Updates Channel : @WhiteEyeDevs
+Total Clients : {total_clients}
+-------------------------------------------""")
+        
+bot.tgbot.loop.run_until_complete(check_inline_on_warner(bot.tgbot))
 
 if len(argv) not in (1, 3, 4):
     bot.disconnect()
