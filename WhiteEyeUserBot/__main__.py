@@ -171,7 +171,7 @@ if failed3 is None:
 WhiteEyedevs.info(
     f"""{wsta}
 -------------------------------------------
-WhiteEyeUserBot Based On Telethon V{tv}
+WhiteEyeUserBot Based On Telethon V{tv} Has Successfully Started.
 Python Version : {platform.python_version()}
 WhiteEyeUserBot Version : V{WhiteEye_version}
 Support Chat : @WhiteEyeDevs
