@@ -23,7 +23,6 @@ from pathlib import Path
 from sys import argv
 
 import telethon.utils
-from WhiteEyeUserBot.Configs import Config
 from telethon import TelegramClient
 from telethon import __version__ as tv
 from telethon.tl.types import InputMessagesFilterDocument
