@@ -21,7 +21,7 @@ from pathlib import Path
 from sys import argv
 
 import telethon.utils
-from fridaybot.Configs import Config
+from WhiteEyeUserBot.Configs import Config
 from telethon import TelegramClient
 from telethon import __version__ as tv
 from telethon.tl.types import InputMessagesFilterDocument
@@ -31,7 +31,7 @@ from WhiteEyeUserBot.Configs import Config
 from WhiteEyeUserBot.utils import load_module, load_module_dclient, start_assistant
 
 WhiteEyeUserBot
-WhiteEyedevs = logging.getLogger("Friday")
+WhiteEyedevs = logging.getLogger("WhiteEye")
 
 
 async def add_bot(bot_token):
