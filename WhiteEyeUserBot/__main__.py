@@ -75,7 +75,7 @@ def multiple_client():
         warnerstark = True
     if not client3:
         pass
-    return warnerstark, chsaiujwal
+    return warnerstark, chutiya
 
 
 async def get_other_plugins(Config, client_s, WhiteEyedevs):
