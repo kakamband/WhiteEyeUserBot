@@ -17,19 +17,19 @@
 
 
 import logging
+import os
+import platform
 from pathlib import Path
 from sys import argv
-import os
+
 import telethon.utils
 from telethon import TelegramClient
 from telethon import __version__ as tv
-import sys
-import platform
-from WhiteEyeUserBot import bot, client2, client3, WhiteEye_version
-from WhiteEyeUserBot.Configs import Config
 from telethon.tl.types import InputMessagesFilterDocument
-from WhiteEyeUserBot.utils import load_module, start_assistant, load_module_dclient
+
+from WhiteEyeUserBot import WhiteEye_version, bot, client2, client3
 from WhiteEyeUserBot.Configs import Config
+from WhiteEyeUserBot.utils import load_module, load_module_dclient, start_assistant
 
 WhiteEyedevs = logging.getLogger("WhiteEye")
 
