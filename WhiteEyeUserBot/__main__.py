@@ -168,13 +168,9 @@ if failed2 is None:
     total_clients += 1
 if failed3 is None:
     total_clients += 1
-if wsta[0].lower() == Lol[0]:
-    pass
-else:
-    print("bug detected")
-    exit()
-fridaydevs.info(
-    f"""{wsta}
+
+WhiteEyedevs.info(
+    f"""{wsta}    
 -------------------------------------------
 WhiteEyeUserBot Based On Telethon V{tv}
 Python Version : {platform.python_version()}
