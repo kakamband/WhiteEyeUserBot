@@ -1,4 +1,3 @@
-
 # Copyright (C) 2019 The Raphielscape Company LLC.
 # Fixed Delete After Download Issue by @StarkXD
 # Licensed under the Raphielscape Public License, Version 1.b (the "License");
@@ -7,16 +6,14 @@
 # Fixed and made better by @anubisxx
 """ Userbot module containing various scrapers. """
 import os
-import random
 from time import sleep
 from urllib.parse import quote_plus
-from WhiteEyeUserBot.utils import WhiteEye_on_cmd
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.keys import Keys
 
 from WhiteEyeUserBot import CHROME_DRIVER, CMD_HELP, GOOGLE_CHROME_BIN
-from WhiteEyeUserBot.utils import register
+from WhiteEyeUserBot.utils import WhiteEye_on_cmd
 
 CARBONLANG = "auto"
 LANG = "en"
