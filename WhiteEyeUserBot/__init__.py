@@ -238,3 +238,4 @@ except:
     pass
 
 WhiteEye_version = "7.0"
+WhiteEye_name = "WhiteEyeUserBot V7.0"
