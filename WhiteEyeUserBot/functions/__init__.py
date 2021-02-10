@@ -1,23 +1,21 @@
-import random
-import requests
-import string
-from bs4 import BeautifulSoup
-from hachoir.metadata import extractMetadata
-from hachoir.parser import createParser
-import hachoir
+import argparse
 import asyncio
 import os
-from pathlib import Path
-from selenium import webdriver
-import time
-import requests
+import random
 import shutil
-import os
-import argparse
-import wget
-from WhiteEyeUserBot import bot as borg
+import string
+import time
+from pathlib import Path
+
+import hachoir
 import lottie
-from WhiteEyeUserBot.utils import load_module
+import requests
+import wget
+from bs4 import BeautifulSoup
+from fake_useragent import UserAgent
+from hachoir.metadata import extractMetadata
+from hachoir.parser import createParser
+from selenium import webdriver
 from telethon.tl.types import DocumentAttributeAudio
 from youtube_dl import YoutubeDL
 from youtube_dl.utils import (
@@ -30,12 +28,12 @@ from youtube_dl.utils import (
     UnavailableVideoError,
     XAttrMetadataError,
 )
-import requests
-from bs4 import BeautifulSoup
-from fake_useragent import UserAgent
+
+from WhiteEyeUserBot import bot as borg
+from WhiteEyeUserBot.utils import load_module
+
 headers = {"UserAgent": UserAgent().random}
 import asyncio
-from WhiteEyeUserBot.functions.FastTelethon import download_file
 import json
 import math
 import os
@@ -43,28 +41,30 @@ import re
 import shlex
 import subprocess
 import time
-import eyed3
-from os.path import basename
-from typing import List, Optional, Tuple
 import webbrowser
-from bs4 import BeautifulSoup
+from os.path import basename
+from typing import List, Optional, Tuple, Union
+
+import eyed3
 import requests
-from bs4 import BeautifulSoup as bs
-import re
-from telethon.tl.types import InputMessagesFilterDocument
 import telethon
-from telethon import Button, custom, events, functions
+from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup as bs
 from pymediainfo import MediaInfo
-from telethon.tl.types import MessageMediaPhoto
-from typing import Union
+from telethon import Button, custom, events, functions
+from telethon.tl.types import InputMessagesFilterDocument, MessageMediaPhoto
+
+from WhiteEyeUserBot.functions.FastTelethon import download_file
+
 SIZE_UNITS = ["B", "KB", "MB", "GB", "TB", "PB"]
 BASE_URL = "https://isubtitles.org"
-from WhiteEyeUserBot.Configs import Config
-import zipfile
 import os
-import aiohttp
-from WhiteEyeUserBot.functions.FastTelethon import upload_file
+import zipfile
 
+import aiohttp
+
+from WhiteEyeUserBot.Configs import Config
+from WhiteEyeUserBot.functions.FastTelethon import upload_file
 
 sedpath = Config.TMP_DOWNLOAD_DIRECTORY
 from WhiteEyeUserBot import logging
@@ -72,15 +72,16 @@ from WhiteEyeUserBot import logging
 logger = logging.getLogger("[--WARNING--]")
 if not os.path.isdir(sedpath):
     os.makedirs(sedpath)
-    
+
 # Deethon // @aykxt
 session = aiohttp.ClientSession()
+
 
 async def fetch_json(link):
     async with session.get(link) as resp:
         return await resp.json()
-    
-    
+
+
 def get_readable_file_size(size_in_bytes: Union[int, float]) -> str:
     if size_in_bytes is None:
         return "0B"
@@ -111,7 +112,8 @@ def get_readable_time(secs: float) -> str:
     seconds = int(seconds)
     result += f"{seconds}s"
     return result
-    
+
+
 # Thanks To Userge-X
 async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
     """ run command in terminal """
@@ -126,7 +128,6 @@ async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
         process.returncode,
         process.pid,
     )
-
 
 
 async def progress(current, total, event, start, type_of_ps, file_name=None):
@@ -153,7 +154,6 @@ async def progress(current, total, event, start, type_of_ps, file_name=None):
             try:
                 await event.edit(
                     "{}\n**File Name:** `{}`\n{}".format(type_of_ps, file_name, tmp)
-                    
                 )
             except:
                 pass
@@ -162,6 +162,8 @@ async def progress(current, total, event, start, type_of_ps, file_name=None):
                 await event.edit("{}\n{}".format(type_of_ps, tmp))
             except:
                 pass
+
+
 async def all_pro_s(Config, client2, client3, bot):
     if not Config.SUDO_USERS:
         lmao_s = []
@@ -176,6 +178,7 @@ async def all_pro_s(Config, client2, client3, bot):
         sed3 = await client3.get_me()
         lmao_s.append(sed3.id)
     return lmao_s
+
 
 def humanbytes(size):
     """Input size in bytes,
@@ -192,6 +195,7 @@ def humanbytes(size):
         raised_to_pow += 1
     return str(round(size, 2)) + " " + dict_power_n[raised_to_pow] + "B"
 
+
 async def get_all_modules(event, borg, channel_id):
     await event.edit(f"Ìnstalling All Plugins from {channel_id}")
     try:
@@ -202,7 +206,9 @@ async def get_all_modules(event, borg, channel_id):
             search=".py",
         )
     except:
-        await event.edit("`Failed To Retrieve Modules. Please Check Channel Username / Id. Make Sure You Are On That Channel`")
+        await event.edit(
+            "`Failed To Retrieve Modules. Please Check Channel Username / Id. Make Sure You Are On That Channel`"
+        )
         return
     yesm = 0
     nom = 0
@@ -213,29 +219,37 @@ async def get_all_modules(event, borg, channel_id):
     await event.edit(f"**Found : {len_p} Plugins. Trying To Install**")
     for sed in a_plugins:
         try:
-            downloaded_file_name = await borg.download_media(sed, "WhiteEyeUserBot/modules/")
+            downloaded_file_name = await borg.download_media(
+                sed, "WhiteEyeUserBot/modules/"
+            )
             if "(" not in downloaded_file_name:
                 path1 = Path(downloaded_file_name)
                 shortname = path1.stem
                 load_module(shortname.replace(".py", ""))
-                await event.edit("**Installed :** `{}`".format(os.path.basename(downloaded_file_name)
-                                                              )
-                                )
+                await event.edit(
+                    "**Installed :** `{}`".format(
+                        os.path.basename(downloaded_file_name)
+                    )
+                )
             else:
                 nom += 1
-                await event.edit("**Failed to Install [PLugin Already Found] :** `{}`".format(os.path.basename(downloaded_file_name)
-                                                              )
-                                )
+                await event.edit(
+                    "**Failed to Install [PLugin Already Found] :** `{}`".format(
+                        os.path.basename(downloaded_file_name)
+                    )
+                )
                 os.remove(downloaded_file_name)
         except:
-                await event.edit("**Failed To Install :** `{}`".format(os.path.basename(downloaded_file_name)
-                                                              )
-                                )
-                os.remove(downloaded_file_name)
-                nom += 1
-                pass
+            await event.edit(
+                "**Failed To Install :** `{}`".format(
+                    os.path.basename(downloaded_file_name)
+                )
+            )
+            os.remove(downloaded_file_name)
+            nom += 1
     yesm = len_p - nom
     return yesm, nom, len_p
+
 
 def time_formatter(milliseconds: int) -> str:
     """Inputs time in milliseconds, to get beautified time,
@@ -245,11 +259,11 @@ def time_formatter(milliseconds: int) -> str:
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
     tmp = (
-            ((str(days) + " day(s), ") if days else "")
-            + ((str(hours) + " hour(s), ") if hours else "")
-            + ((str(minutes) + " minute(s), ") if minutes else "")
-            + ((str(seconds) + " second(s), ") if seconds else "")
-            + ((str(milliseconds) + " millisecond(s), ") if milliseconds else "")
+        ((str(days) + " day(s), ") if days else "")
+        + ((str(hours) + " hour(s), ") if hours else "")
+        + ((str(minutes) + " minute(s), ") if minutes else "")
+        + ((str(seconds) + " second(s), ") if seconds else "")
+        + ((str(milliseconds) + " millisecond(s), ") if milliseconds else "")
     )
     return tmp[:-2]
 
@@ -259,14 +273,14 @@ def time_formatter(milliseconds: int) -> str:
 async def convert_to_image(event, borg):
     lmao = await event.get_reply_message()
     if not (
-            lmao.gif
-            or lmao.audio
-            or lmao.voice
-            or lmao.video
-            or lmao.video_note
-            or lmao.photo
-            or lmao.sticker
-            or lmao.media
+        lmao.gif
+        or lmao.audio
+        or lmao.voice
+        or lmao.video
+        or lmao.video_note
+        or lmao.photo
+        or lmao.sticker
+        or lmao.media
     ):
         await event.edit("`Format Not Supported.`")
         return
@@ -348,7 +362,7 @@ async def crop_vid(input_vid: str, final_path: str):
 
 # Thanks To Userge-X
 async def take_screen_shot(
-        video_file: str, duration: int, path: str = ""
+    video_file: str, duration: int, path: str = ""
 ) -> Optional[str]:
     """ take a screenshot """
     logger.info(
@@ -402,7 +416,9 @@ async def fetch_feds(event, borg):
                 await event.edit("`Try again after 5 mins.`")
                 return
             if fedfile.media:
-                downloaded_file_name = await borg.download_media(fedfile.media, "fedlist.txt")
+                downloaded_file_name = await borg.download_media(
+                    fedfile.media, "fedlist.txt"
+                )
                 await asyncio.sleep(1)
                 file = open(downloaded_file_name, "r")
                 lines = file.readlines()
@@ -461,8 +477,8 @@ async def get_subtitles(imdb_id, borg, event):
             sub_name_tag = row.find("td", class_=None)
             sub_name = (
                 str(sub_name_tag.find("a").text)
-                    .replace("subtitle", "")
-                    .replace("\n", "")
+                .replace("subtitle", "")
+                .replace("\n", "")
             )
             sub = (sub_name, sub_link)
             subtitles.append(sub)
@@ -484,43 +500,51 @@ async def get_subtitles(imdb_id, borg, event):
 
 # Thanks To TechoAryan For Scarpping
 async def apk_dl(app_name, path, event):
-    await event.edit('`Searching, For Apk File. This May Take Time Depending On Your App Size`')
+    await event.edit(
+        "`Searching, For Apk File. This May Take Time Depending On Your App Size`"
+    )
     res = requests.get(f"https://m.apkpure.com/search?q={app_name}")
-    soup = BeautifulSoup(res.text, 'html.parser')
-    result = soup.select('.dd')
+    soup = BeautifulSoup(res.text, "html.parser")
+    result = soup.select(".dd")
     for link in result[:1]:
-        s_for_name = requests.get("https://m.apkpure.com" + link.get('href'))
-        sfn = BeautifulSoup(s_for_name.text, 'html.parser')
-        ttl = sfn.select_one('title').text
-        noneed = [' - APK Download']
+        s_for_name = requests.get("https://m.apkpure.com" + link.get("href"))
+        sfn = BeautifulSoup(s_for_name.text, "html.parser")
+        ttl = sfn.select_one("title").text
+        noneed = [" - APK Download"]
         for i in noneed:
-            name = ttl.replace(i, '')
-            res2 = requests.get("https://m.apkpure.com" + link.get('href') + "/download?from=details")
-            soup2 = BeautifulSoup(res2.text, 'html.parser')
-            result = soup2.select('.ga')
+            name = ttl.replace(i, "")
+            res2 = requests.get(
+                "https://m.apkpure.com" + link.get("href") + "/download?from=details"
+            )
+            soup2 = BeautifulSoup(res2.text, "html.parser")
+            result = soup2.select(".ga")
         for link in result:
-            dl_link = link.get('href')
+            dl_link = link.get("href")
             r = requests.get(dl_link)
-            with open(f"{path}/{name}@WhiteEyeDevs.apk", 'wb') as f:
+            with open(f"{path}/{name}@WhiteEyeDevs.apk", "wb") as f:
                 f.write(r.content)
-    await event.edit('`Apk, Downloaded. Let me Upload It here.`')
-    final_path = f'{path}/{name}@WhiteEyeDevs.apk'
+    await event.edit("`Apk, Downloaded. Let me Upload It here.`")
+    final_path = f"{path}/{name}@WhiteEyeDevs.apk"
     return final_path, name
+
 
 async def check_if_subbed(channel_id, event, bot):
     try:
-            result = await bot(
-                functions.channels.GetParticipantRequest(
-                    channel=channel_id, user_id=event.sender_id
-                )
+        result = await bot(
+            functions.channels.GetParticipantRequest(
+                channel=channel_id, user_id=event.sender_id
             )
-            if result.participant:
-                return True
+        )
+        if result.participant:
+            return True
     except telethon.errors.rpcerrorlist.UserNotParticipantError:
         return False
-    
+
+
 async def _ytdl(url, is_it, event, tgbot):
-    await event.edit("`Ok Downloading This Video / Audio - Please Wait.` \n**Powered By @WhiteEyeDevs**")
+    await event.edit(
+        "`Ok Downloading This Video / Audio - Please Wait.` \n**Powered By @WhiteEyeDevs**"
+    )
     if is_it:
         opts = {
             "format": "bestaudio",
@@ -572,16 +596,13 @@ async def _ytdl(url, is_it, event, tgbot):
         lol_m = await upload_file(
             file_name=f"{ytdl_data['title']}.mp3",
             client=tgbot,
-            file=open(file_stark, 'rb'),
+            file=open(file_stark, "rb"),
             progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                progress(
-                    d, t, event, c_time, "Uploading Youtube Audio..", file_stark
-                )
+                progress(d, t, event, c_time, "Uploading Youtube Audio..", file_stark)
             ),
         )
         await event.edit(
-            file=lol_m,
-            text=f"{ytdl_data['title']} \n**Uploaded Using @WhiteEyeDevs**"
+            file=lol_m, text=f"{ytdl_data['title']} \n**Uploaded Using @WhiteEyeDevs**"
         )
         os.remove(file_stark)
     elif video:
@@ -589,31 +610,30 @@ async def _ytdl(url, is_it, event, tgbot):
         lol_m = await upload_file(
             file_name=f"{ytdl_data['title']}.mp4",
             client=tgbot,
-            file=open(file_stark, 'rb'),
+            file=open(file_stark, "rb"),
             progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                progress(
-                    d, t, event, c_time, "Uploading Youtube Video..", file_stark
-                )
+                progress(d, t, event, c_time, "Uploading Youtube Video..", file_stark)
             ),
         )
         await event.edit(
-            file=lol_m,
-            text=f"{ytdl_data['title']} \n**Uploaded Using @WhiteEyeDevs**"
+            file=lol_m, text=f"{ytdl_data['title']} \n**Uploaded Using @WhiteEyeDevs**"
         )
         os.remove(file_stark)
 
 
 async def _deezer_dl(word, event, tgbot):
-    await event.edit("`Ok Downloading This Audio - Please Wait.` \n**Powered By @WhiteEyeDevs**")
+    await event.edit(
+        "`Ok Downloading This Audio - Please Wait.` \n**Powered By @WhiteEyeDevs**"
+    )
     urlp = f"https://starkapi.herokuapp.com/deezer/{word}"
     datto = requests.get(url=urlp).json()
     mus = datto.get("url")
     mello = datto.get("artist")
-    #thums = urlhp["album"]["cover_medium"]
-    sname = f'''{datto.get("title")}.mp3'''
+    # thums = urlhp["album"]["cover_medium"]
+    sname = f"""{datto.get("title")}.mp3"""
     doc = requests.get(mus)
-    with open(sname, 'wb') as f:
-      f.write(doc.content)
+    with open(sname, "wb") as f:
+        f.write(doc.content)
     car = f"""
 **Song Name :** {datto.get("title")}
 **Duration :** {datto.get('duration')} Seconds
@@ -623,33 +643,25 @@ Get Your WhiteEye From @WhiteEyeDevs"""
     await event.edit("Song Downloaded.  Waiting To Upload. 🥳🤗")
     c_time = time.time()
     uploaded_file = await upload_file(
-        	file_name=sname,
-            client=tgbot,
-            file=open(sname, 'rb'),
-            progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                progress(
-                    d, t, event, c_time, "Uploading..", sname
-                )
-            ),
-        )
-    
-    await event.edit(
-            file=uploaded_file,
-            text=car
+        file_name=sname,
+        client=tgbot,
+        file=open(sname, "rb"),
+        progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
+            progress(d, t, event, c_time, "Uploading..", sname)
+        ),
     )
+
+    await event.edit(file=uploaded_file, text=car)
     os.remove(sname)
 
 
-
-
-                  
 async def get_all_admin_chats(event):
     lul_stark = []
     all_chats = [
         d.entity
-            for d in await event.client.get_dialogs()
-            if (d.is_group or d.is_channel)
-        ]
+        for d in await event.client.get_dialogs()
+        if (d.is_group or d.is_channel)
+    ]
     try:
         for i in all_chats:
             if i.creator or i.admin_rights:
@@ -658,7 +670,7 @@ async def get_all_admin_chats(event):
         pass
     return lul_stark
 
-                  
+
 async def is_admin(event, user):
     try:
         sed = await event.client.get_permissions(event.chat_id, user)
@@ -669,23 +681,28 @@ async def is_admin(event, user):
     except:
         is_mod = False
     return is_mod
-    
-# By @Krishna_Singhal 
-def tgs_to_gif(sticker_path: str, quality: int = 256) -> str:                  
+
+
+# By @Krishna_Singhal
+def tgs_to_gif(sticker_path: str, quality: int = 256) -> str:
     dest = os.path.join(Config.TMP_DOWNLOAD_DIRECTORY, "animation.gif")
-    with open(dest, 'wb') as t_g:
-        lottie.exporters.gif.export_gif(lottie.parsers.tgs.parse_tgs(sticker_path), t_g, quality, 1)
+    with open(dest, "wb") as t_g:
+        lottie.exporters.gif.export_gif(
+            lottie.parsers.tgs.parse_tgs(sticker_path), t_g, quality, 1
+        )
     os.remove(sticker_path)
     return dest
-   
-# @Midhun_Xd ki maa ki chut 7 baar 
+
+
+# @Midhun_Xd ki maa ki chut 7 baar
+
 
 async def fetch_audio(event, ws):
     if not event.reply_to_msg_id:
         await event.edit("`Reply To A Video / Audio.`")
         return
-    whiteeye = await event.get_reply_message()    
-    if whiteeye.audio is None  and whiteeye.video is None:
+    whiteeye = await event.get_reply_message()
+    if whiteeye.audio is None and whiteeye.video is None:
         await event.edit("`Format Not Supported`")
         return
     if whiteeye.video:
@@ -693,22 +710,22 @@ async def fetch_audio(event, ws):
         whitedevs = await event.client.download_media(whiteeye.media)
         whitecmd = f"ffmpeg -i {whitedevs} -map 0:a WhiteEye.mp3"
         stdout, stderr = (await runcmd(whitecmd))[:2]
-        whiteeyebob = "WhiteEye.mp3"
     elif whiteeye.audio:
         await event.edit("`Download Started !`")
-        whiteeyebob = await event.client.download_media(whiteeye.media)
-    await event.edit("`Almost Done!`")    
+        await event.client.download_media(whiteeye.media)
+    await event.edit("`Almost Done!`")
     return final_warner
+
 
 async def is_nsfw(event):
     lmao = event
     if not (
-            lmao.gif
-            or lmao.video
-            or lmao.video_note
-            or lmao.photo
-            or lmao.sticker
-            or lmao.media
+        lmao.gif
+        or lmao.video
+        or lmao.video_note
+        or lmao.photo
+        or lmao.sticker
+        or lmao.media
     ):
         return False
     if lmao.video or lmao.video_note or lmao.sticker or lmao.gif:
@@ -723,16 +740,16 @@ async def is_nsfw(event):
             return False
     img = zeezee
     f = {"file": (img, open(img, "rb"))}
-    
-    r = requests.post("https://starkapi.herokuapp.com/nsfw/", files = f).json()
+
+    r = requests.post("https://starkapi.herokuapp.com/nsfw/", files=f).json()
     if r.get("success") is False:
-      is_nsfw = False
+        is_nsfw = False
     elif r.get("is_nsfw") is True:
-      is_nsfw = True
+        is_nsfw = True
     elif r.get("is_nsfw") is False:
-      is_nsfw = False
+        is_nsfw = False
     return is_nsfw
-    
+
 
 mobile_tracker_key = [
     "Mobile Phone",
@@ -767,6 +784,7 @@ class Track_Mobile_Number:
             }
         else:
             raise Exception("Invalid Mobile Number")
+
     @property
     def verify_number(self):
         return bool(len(self.mobile_number) == 10 and self.mobile_number.isdigit())
