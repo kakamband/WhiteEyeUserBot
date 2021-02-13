@@ -40,13 +40,13 @@ openhehe = ChatBannedRights(
 @assistant_cmd("scgrp", is_args=True)
 async def close_ws(event):
     if not event.is_group:
-        await event.edit("You Can Only Enable Night Mode in Groups.")
+        await event.reply("You Can Only Enable Night Mode in Groups.")
         return
     if is_nightmode_indb(str(event.chat_id)):
-        await event.edit("This Chat is Has Already Enabled Night Mode.")
+        await event.reply("This Chat is Has Already Enabled Night Mode.")
         return
     add_nightmode(str(event.chat_id))
-    await event.edit(
+    await event.reply(
         f"**Added Chat {event.chat.title} With Id {event.chat_id} To Database. This Group Will Be Closed On 12Am(IST) And Will Opened On 06Am(IST)**"
     )
 
@@ -54,13 +54,13 @@ async def close_ws(event):
 @assistant_cmd("rsgrp", is_args=True)
 async def disable_ws(event):
     if not event.is_group:
-        await event.edit("You Can Only Disable Night Mode in Groups.")
+        await event.reply("You Can Only Disable Night Mode in Groups.")
         return
     if not is_nightmode_indb(str(event.chat_id)):
-        await event.edit("This Chat is Has Not Enabled Night Mode.")
+        await event.reply("This Chat is Has Not Enabled Night Mode.")
         return
     rmnightmode(str(event.chat_id))
-    await event.edit(
+    await event.reply(
         f"**Removed Chat {event.chat.title} With Id {event.chat_id} From Database. This Group Will Be No Longer Closed On 12Am(IST) And Will Opened On 06Am(IST)**"
     )
 
