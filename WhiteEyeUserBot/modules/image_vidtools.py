@@ -748,7 +748,7 @@ async def slogo(event):
         return
     await event.edit("`Processing..`")
     text = event.pattern_match.group(2)
-    img = Image.open("./resources/star/whiteeyelogos.jpg.jpg")
+    img = Image.open("./resources/star/whiteeyelogos.jpg")
     draw = ImageDraw.Draw(img)
     image_widthz, image_heightz = img.size
     font = ImageFont.truetype("./resources/star/Chopsic.otf", 380)
