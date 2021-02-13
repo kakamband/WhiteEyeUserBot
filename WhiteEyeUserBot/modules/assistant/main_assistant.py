@@ -16,8 +16,10 @@ import io
 import os
 import re
 
-from telethon import Button, custom, events
+from telethon import Button, custom, events, functions
+import telethon
 from telethon.tl.functions.users import GetFullUserRequest
+from telethon.utils import pack_bot_file_id
 
 from WhiteEyeUserBot import bot
 from WhiteEyeUserBot.Configs import Config
@@ -33,19 +35,18 @@ from WhiteEyeUserBot.modules.sql_helper.idadder_sql import (
     get_all_users,
 )
 
-
 @assistant_cmd("start", is_args=False)
 async def start(event):
-    dayambot = await tgbot.get_me()
-    bot_id = dayambot.first_name
-    bot_username = dayambot.username
+    starkbot = await tgbot.get_me()
+    bot_id = starkbot.first_name
+    bot_username = starkbot.username
     replied_user = await event.client(GetFullUserRequest(event.sender_id))
     firstname = replied_user.user.first_name
     devlop = await bot.get_me()
     hmmwow = devlop.first_name
     vent = event.chat_id
     mypic = Config.ASSISTANT_START_PIC
-    starttext = f"Hello, {firstname} ! Nice To Meet You, Well I Am {bot_id}, An Powerfull Assistant Bot. \n\nMy Master [{hmmwow}](tg://user?id={bot.uid}) \nYou Can Talk/Contact My Master Using This Bot. \n\nIf You Want Your Own Assistant You Can Deploy From Button Below. \n\nPowered By [WhiteEye Userbot](t.me/WhiteEyeOT)"
+    starttext = f"Hello, {firstname} ! Nice To Meet You, Well I Am {bot_id}, An Powerfull Assistant Bot. \n\nMy Master [{hmmwow}](tg://user?id={bot.uid}) \nYou Can Talk/Contact My Master Using This Bot. \n\nIf You Want Your Own Assistant You Can Deploy From Button Below. \n\nPowered By [WhiteEyeUserBot](t.me/WhiteEyeDevs)"
     if event.sender_id == bot.uid:
         await tgbot.send_message(
             vent,
@@ -71,7 +72,7 @@ async def start(event):
             caption=starttext,
             link_preview=False,
             buttons=[
-                [custom.Button.inline("Deploy your WhiteEye 🇮🇳", data="deploy")],
+                [custom.Button.inline("Deploy your WhiteEyeUserBot 🇮🇳", data="deploy")],
                 [Button.url("Help Me ❓", "t.me/WhiteEyeDevs")],
             ],
         )
@@ -88,10 +89,10 @@ async def help(event):
     if event.query.user_id is not bot.uid:
         await tgbot.send_message(
             event.chat_id,
-            message="You Can Deploy WhiteEye In Heroku By Following Steps Bellow, You Can See Some Quick Guides On Support Channel Or On Your Own Assistant Bot. \nThank You For Contacting Me.",
+            message="You Can Deploy WhiteEyeUserBot In Heroku By Following Steps Bellow, You Can See Some Quick Guides On Support Channel Or On Your Own Assistant Bot. \nThank You For Contacting Me.",
             buttons=[
-                [Button.url("Deploy Tutorial 📺", "hey")],
-                [Button.url("Need Help ❓", "t.me/WhiteEyeDevs")],
+                [Button.url("Deploy Tutorial 📺", "https://youtu.be/YztAfFPmmvI")],
+                [Button.url("Need Help ❓", "t.me/whiteeyedevs")],
             ],
         )
 
@@ -120,7 +121,7 @@ async def users(event):
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"gibcmd")))
 async def users(event):
     await event.delete()
-    grabon = "Hello Here Are Some Commands \n➤ /start - Check if I am Alive \n➤ /ping - Pong! \n➤ /tr <lang-code> \n➤ /broadcast - Sends Message To all Users In Bot \n➤ /id - Shows ID of User And Media. \n➤ /addnote - Add Note \n➤ /notes - Shows Notes \n➤ /rmnote - Remove Note \n➤ /alive - Am I Alive? \n➤ /bun - Works In Group , Bans A User. \n➤ /unbun - Unbans A User in Group \n➤ /prumote - Promotes A User \n➤ /demute - Demotes A User \n➤ /pin - Pins A Message \n➤ /stats - Shows Total Users In Bot \n ➤ /nighton - Starts Night Mode In Group From 12 To 6Am. \n ➤ /nightoff Removes Night Mode In Group From 12 To 6Am "
+    grabon = "Hello Here Are Some Commands \n➤ /start - Check if I am Alive \n➤ /ping - Pong! \n➤ /tr <lang-code> \n➤ /broadcast - Sends Message To all Users In Bot \n➤ /id - Shows ID of User And Media. \n➤ /addnote - Add Note \n➤ /notes - Shows Notes \n➤ /rmnote - Remove Note \n➤ /alive - Am I Alive? \n➤ /bun - Works In Group , Bans A User. \n➤ /unbun - Unbans A User in Group \n➤ /prumote - Promotes A User \n➤ /demute - Demotes A User \n➤ /pin - Pins A Message \n➤ /stats - Shows Total Users In Bot"
     await tgbot.send_message(event.chat_id, grabon)
 
 
@@ -129,17 +130,24 @@ async def users(event):
 async def all_messages_catcher(event):
     if is_he_added(event.sender_id):
         return
-    if event.raw_text.startswith("/"):
-        pass
-    elif event.sender_id == bot.uid:
+    if event.sender_id == bot.uid:
         return
-    else:
-        await event.get_sender()
-        event.chat_id
-        sed = await event.forward_to(bot.uid)
-        # Add User To Database ,Later For Broadcast Purpose
-        # (C) @SpecHide
-        add_me_in_db(sed.id, event.sender_id, event.id)
+    if event.raw_text.startswith("/"):
+        return
+    if Config.SUB_TO_MSG_ASSISTANT:
+        try:
+            result = await tgbot(
+                functions.channels.GetParticipantRequest(
+                    channel=Config.JTM_CHANNEL_ID, user_id=event.sender_id
+                )
+            )
+        except telethon.errors.rpcerrorlist.UserNotParticipantError:
+            await event.reply(f"**Opps, I Couldn't Forward That Message To Owner. Please Join My Channel First And Then Try Again!**",
+                             buttons = [Button.url("Join Channel 🇮🇳", Config.JTM_CHANNEL_USERNAME)])
+            return
+    await event.get_sender()
+    sed = await event.forward_to(bot.uid)
+    add_me_in_db(sed.id, event.sender_id, event.id)
 
 
 @tgbot.on(events.NewMessage(func=lambda e: e.is_private))
@@ -150,30 +158,31 @@ async def sed(event):
     msg.id
     msg_s = event.raw_text
     user_id, reply_message_id = his_userid(msg.id)
-    if event.sender_id == Config.OWNER_ID:
-        if event.raw_text.startswith("/"):
-            return
-        if event.text is not None and event.media:
-            bot_api_file_id = pack_bot_file_id(event.media)
-            await tgbot.send_file(
-                user_id,
-                file=bot_api_file_id,
-                caption=event.text,
-                reply_to=reply_message_id,
-            )
-        else:
-            msg_s = event.raw_text
-            await tgbot.send_message(
-                user_id,
-                msg_s,
-                reply_to=reply_message_id,
-            )
+    if event.sender_id != bot.uid:
+        return
+    elif event.raw_text.startswith("/"):
+        return
+    elif event.text is not None and event.media:
+        bot_api_file_id = pack_bot_file_id(event.media)
+        await tgbot.send_file(
+            user_id,
+            file=bot_api_file_id,
+            caption=event.text,
+            reply_to=reply_message_id,
+        )
+    else:
+        msg_s = event.raw_text
+        await tgbot.send_message(
+            user_id,
+            msg_s,
+            reply_to=reply_message_id,
+        )
 
 
-@assistant_cmd("broadcast", is_args=True)
+@assistant_cmd("broadcast", is_args='heck')
 @god_only
 async def sedlyfsir(event):
-    msgtobroadcast = event.pattern_match.group(1)
+    msgtobroadcast = event.text.split(" ", maxsplit=1)[1]
     userstobc = get_all_users()
     error_count = 0
     sent_count = 0
@@ -187,14 +196,9 @@ async def sedlyfsir(event):
     for starkcast in userstobc:
         try:
             sent_count += 1
-            await tgbot.send_message(
-                int(starkcast.chat_id),
-                "**Hey, You Have Received A New Broadcast Message**",
-            )
             await tgbot.send_message(int(starkcast.chat_id), msgtobroadcast)
             await asyncio.sleep(0.2)
-        except Exception as e:
-            hmmok += f"Errors : {e} \n"
+        except:
             error_count += 1
     await tgbot.send_message(
         event.chat_id,
@@ -205,26 +209,24 @@ async def sedlyfsir(event):
 @assistant_cmd("stats", is_args=False)
 @peru_only
 async def starkisnoob(event):
-    dayamisnoob = get_all_users()
+    starkisnoob = get_all_users()
     await event.reply(
-        f"**Stats Of Your Bot** \nTotal Users In Bot => {len(dayamisnoob)}"
+        f"**Stats Of Your Bot** \nTotal Users In Bot => {len(starkisnoob)}"
     )
 
 
 @assistant_cmd("help", is_args=False)
 @peru_only
-async def dayamislub(event):
+async def starkislub(event):
     grabonx = "Hello Here Are Some Commands \n➤ /start - Check if I am Alive \n➤ /ping - Pong! \n➤ /tr <lang-code> \n➤ /broadcast - Sends Message To all Users In Bot \n➤ /id - Shows ID of User And Media. \n➤ /addnote - Add Note \n➤ /notes - Shows Notes \n➤ /rmnote - Remove Note \n➤ /alive - Am I Alive? \n➤ /bun - Works In Group , Bans A User. \n➤ /unbun - Unbans A User in Group \n➤ /prumote - Promotes A User \n➤ /demute - Demotes A User \n➤ /pin - Pins A Message \n➤ /stats - Shows Total Users In Bot"
     await event.reply(grabonx)
 
 
 @assistant_cmd("block", is_args=False)
 @god_only
-async def dayamisnoob(event):
+async def starkisnoob(event):
     if event.sender_id == bot.uid:
         msg = await event.get_reply_message()
-        msg.id
-        event.raw_text
         user_id, reply_message_id = his_userid(msg.id)
     if is_he_added(user_id):
         await event.reply("Already Blacklisted")
@@ -238,7 +240,7 @@ async def dayamisnoob(event):
 
 @assistant_cmd("unblock", is_args=False)
 @god_only
-async def dayamisnoob(event):
+async def starkisnoob(event):
     if event.sender_id == bot.uid:
         msg = await event.get_reply_message()
         msg.id
