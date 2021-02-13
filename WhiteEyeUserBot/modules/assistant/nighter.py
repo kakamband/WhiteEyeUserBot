@@ -43,9 +43,6 @@ async def close_ws(event):
     if not event.is_group:
         await event.edit("You Can Only Enable Night Mode in Groups.")
         return
-    if not await is_admin(event, bot.uid):
-        await event.edit("`You Should Be Admin To Do This!`")
-        return
     if is_nightmode_indb(str(event.chat_id)):
         await event.edit("This Chat is Has Already Enabled Night Mode.")
         return
@@ -59,9 +56,6 @@ async def close_ws(event):
 async def disable_ws(event):
     if not event.is_group:
         await event.edit("You Can Only Disable Night Mode in Groups.")
-        return
-    if not await is_admin(event, bot.uid):
-        await event.edit("`You Should Be Admin To Do This!`")
         return
     if not is_nightmode_indb(str(event.chat_id)):
         await event.edit("This Chat is Has Not Enabled Night Mode.")
