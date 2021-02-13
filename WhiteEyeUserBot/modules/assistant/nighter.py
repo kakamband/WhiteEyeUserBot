@@ -71,19 +71,19 @@ async def job_close():
         return
     for warner in ws_chats:
         try:
-            await WhiteEye.send_message(
+            await tgbot.send_message(
                 int(warner.chat_id),
                 "`12:00 Am, Group Is Closing Till 6 Am. Night Mode Started !` \n**Powered By @WhiteEyeDevs**",
             )
-            await WhiteEye(
+            await tgbot(
                 functions.messages.EditChatDefaultBannedRightsRequest(
                     peer=int(warner.chat_id), banned_rights=hehes
                 )
             )
             if Config.CLEAN_GROUPS:
-                async for user in friday.iter_participants(int(warner.chat_id)):
+                async for user in tgbot.iter_participants(int(warner.chat_id)):
                     if user.deleted:
-                        await friday.edit_permissions(
+                        await tgbot.edit_permissions(
                             int(warner.chat_id), user.id, view_messages=False
                         )
         except Exception as e:
