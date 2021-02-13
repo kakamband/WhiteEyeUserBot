@@ -1,13 +1,8 @@
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.schedulers.asyncio import AsyncIOScheduler 
 from telethon import functions
+from WhiteEyeUserBot.functions import get_all_admin_chats, is_admin
+from WhiteEyeUserBot.modules.sql_helper.night_mode_sql import add_nightmode, rmnightmode, get_all_chat_id, is_nightmode_indb
 from telethon.tl.types import ChatBannedRights
-
-from WhiteEyeUserBot.modules.sql_helper.night_mode_sql import (
-    add_nightmode,
-    get_all_chat_id,
-    is_nightmode_indb,
-    rmnightmode,
-)
 
 hehes = ChatBannedRights(
     until_date=None,
@@ -35,8 +30,6 @@ openhehe = ChatBannedRights(
     pin_messages=True,
     change_info=True,
 )
-
-
 @assistant_cmd("scgrp", is_args=True)
 async def close_ws(event):
     if not event.is_group:
@@ -46,10 +39,7 @@ async def close_ws(event):
         await event.reply("This Chat is Has Already Enabled Night Mode.")
         return
     add_nightmode(str(event.chat_id))
-    await event.reply(
-        f"**Added Chat {event.chat.title} With Id {event.chat_id} To Database. This Group Will Be Closed On 12Am(IST) And Will Opened On 06Am(IST)**"
-    )
-
+    await event.edit(f"**Added Chat {event.chat.title} With Id {event.chat_id} To Database. This Group Will Be Closed On 12Am(IST) And Will Opened On 06Am(IST)**")
 
 @assistant_cmd("rsgrp", is_args=True)
 async def disable_ws(event):
@@ -60,9 +50,7 @@ async def disable_ws(event):
         await event.reply("This Chat is Has Not Enabled Night Mode.")
         return
     rmnightmode(str(event.chat_id))
-    await event.reply(
-        f"**Removed Chat {event.chat.title} With Id {event.chat_id} From Database. This Group Will Be No Longer Closed On 12Am(IST) And Will Opened On 06Am(IST)**"
-    )
+    await event.edit(f"**Removed Chat {event.chat.title} With Id {event.chat_id} From Database. This Group Will Be No Longer Closed On 12Am(IST) And Will Opened On 06Am(IST)**")
 
 
 async def job_close():
@@ -78,10 +66,16 @@ async def job_close():
             functions.messages.EditChatDefaultBannedRightsRequest(
                 peer=int(warner.chat_id), banned_rights=hehes
             )
-
+            )
+            if Config.CLEAN_GROUPS:
+                async for user in tgbot.iter_participants(int(warner.chat_id)):
+                    if user.deleted:
+                        await tgbot.edit_permissions(int(warner.chat_id), user.id, view_messages=False)
+        except Exception as e:
+            logger.info(f"Unable To Close Group {warner} - {e}")
 
 scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
-scheduler.add_job(job_close, trigger="cron", hour=12, minute=35)
+scheduler.add_job(job_close, trigger="cron", hour=12, minute=45)
 scheduler.start()
 
 
@@ -92,17 +86,15 @@ async def job_open():
     for warner in ws_chats:
         try:
             await tgbot.send_message(
-                int(warner.chat_id),
-                "`06:00 Am, Group Is Opening.`\n**Powered By @WhiteEyeDevs**",
+              int(warner.chat_id), "`06:00 Am, Group Is Opening.`\n**Powered By @WhiteEyeDevs**"
             )
             await tgbot(
-                functions.messages.EditChatDefaultBannedRightsRequest(
-                    peer=int(warner.chat_id), banned_rights=openhehe
-                )
+            functions.messages.EditChatDefaultBannedRightsRequest(
+                peer=int(warner.chat_id), banned_rights=openhehe
             )
+        )
         except Exception as e:
             logger.info(f"Unable To Open Group {warner.chat_id} - {e}")
-
 
 # Run everyday at 06
 scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
