@@ -68,7 +68,6 @@ async def disable_ws(event):
 
 async def job_close():
     ws_chats = get_all_chat_id()
-    logger = Config.CLEAN_GROUPS
     if len(ws_chats) == 0:
         return
     for warner in ws_chats:
@@ -81,25 +80,22 @@ async def job_close():
                 functions.messages.EditChatDefaultBannedRightsRequest(
                     peer=int(warner.chat_id), banned_rights=hehes
                 )
-            )
+            )   
             if Config.CLEAN_GROUPS:
                 async for user in tgbot.iter_participants(int(warner.chat_id)):
                     if user.deleted:
                         await tgbot.edit_permissions(
                             int(warner.chat_id), user.id, view_messages=False
-                        )
-        except Exception as e:
-            logger.info(f"Unable To Close Group {warner} - {e}")
+                )
 
 
 scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
-scheduler.add_job(job_close, trigger="cron", hour=12, minute=52)
+scheduler.add_job(job_close, trigger="cron", hour=12, minute=58)
 scheduler.start()
 
 
 async def job_open():
     ws_chats = get_all_chat_id()
-    logger = Config.CLEAN_GROUPS
     if len(ws_chats) == 0:
         return
     for warner in ws_chats:
@@ -112,10 +108,7 @@ async def job_open():
                 functions.messages.EditChatDefaultBannedRightsRequest(
                     peer=int(warner.chat_id), banned_rights=openhehe
                 )
-            )
-        except Exception as e:
-            logger.info(f"Unable To Open Group {warner.chat_id} - {e}")
-
+            
 
 # Run everyday at 06
 scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
