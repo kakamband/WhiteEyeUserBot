@@ -38,7 +38,7 @@ openhehe = ChatBannedRights(
 )
 
 
-@assistant_cmd("scgrp", is_args=True)
+@assistant_cmd("nighton", is_args=True)
 async def close_ws(event):
     if not event.is_group:
         await event.reply("You Can Only Enable Night Mode in Groups.")
@@ -52,7 +52,7 @@ async def close_ws(event):
     )
 
 
-@assistant_cmd("rsgrp", is_args=True)
+@assistant_cmd("nightoff", is_args=True)
 async def disable_ws(event):
     if not event.is_group:
         await event.reply("You Can Only Disable Night Mode in Groups.")
@@ -92,7 +92,7 @@ async def job_close():
 
 
 scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
-scheduler.add_job(job_close, trigger="cron", hour=13, minute=12)
+scheduler.add_job(job_close, trigger="cron", hour=23, minute=59)
 scheduler.start()
 
 
@@ -117,5 +117,5 @@ async def job_open():
 
 # Run everyday at 06
 scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
-scheduler.add_job(job_open, trigger="cron", hour=13, minute=14)
+scheduler.add_job(job_open, trigger="cron", hour=5, minute=59)
 scheduler.start()
