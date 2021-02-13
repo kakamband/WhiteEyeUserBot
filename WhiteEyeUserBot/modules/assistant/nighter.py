@@ -87,11 +87,11 @@ async def job_close():
                             int(warner.chat_id), user.id, view_messages=False
                         )
         except Exception as e:
-            logger.info(f"Unable To Open Group {warner} - {e}")
+            info(f"Unable To Open Group {warner} - {e}")
 
 
 scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
-scheduler.add_job(job_close, trigger="cron", hour=12, minute=24)
+scheduler.add_job(job_close, trigger="cron", hour=12, minute=26)
 scheduler.start()
 
 
