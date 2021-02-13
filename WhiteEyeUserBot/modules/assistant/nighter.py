@@ -73,18 +73,23 @@ async def job_close():
     for warner in ws_chats:
         try:
             await tgbot.send_message(
-              int(warner.chat_id), "`12:00 Am, Group Is Closing Till 6 Am. Night Mode Started !` \n**Powered By @WhiteEyeDevs**"
+              int(warner.chat_id), "`12:00 Am, Group Is Closing Till 6 Am. Night Mode Started !` \n**Powered By @WhitEyeDevs**"
             )
             await tgbot(
             functions.messages.EditChatDefaultBannedRightsRequest(
                 peer=int(warner.chat_id), banned_rights=hehes
             )
+            )
+            if Config.CLEAN_GROUPS:
+                async for user in tgbot.iter_participants(int(warner.chat_id)):
+                    if user.deleted:
+                        await tgbot.edit_permissions(int(warner.chat_id), user.id, view_messages=False)
+        except Exception as e:
+            tgbot.send_message(f"Unable To Close Group {warner} - {e}")
 
-
-
-                scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
-                scheduler.add_job(job_close, trigger="cron", hour=13, minute=7)
-                scheduler.start()
+scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
+scheduler.add_job(job_close, trigger="cron", hour=13, minute=12)
+scheduler.start()
 
 
 async def job_open():
@@ -94,13 +99,15 @@ async def job_open():
     for warner in ws_chats:
         try:
             await tgbot.send_message(
-                int(warner.chat_id),
-                "`06:00 Am, Group Is Opening.`\n**Powered By @WhiteEyeDevs**",
+              int(warner.chat_id), "`06:00 Am, Group Is Opening.`\n**Powered By @WhitEyeDevs**"
             )
             await tgbot(
-                functions.messages.EditChatDefaultBannedRightsRequest(
-                    peer=int(warner.chat_id), banned_rights=openhehe
-                )
+            functions.messages.EditChatDefaultBannedRightsRequest(
+                peer=int(warner.chat_id), banned_rights=openhehe
+            )
+        )
+        except Exception as e:
+            tgbot.send_message(f"Unable To Open Group {warner.chat_id} - {e}")
             
 
 # Run everyday at 06
