@@ -1,8 +1,8 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from telethon import functions
 from telethon.tl.types import ChatBannedRights
-from WhiteEyeUserBot.Configs import Config
 
+from WhiteEyeUserBot.Configs import Config
 from WhiteEyeUserBot.modules.sql_helper.night_mode_sql import (
     add_nightmode,
     get_all_chat_id,
