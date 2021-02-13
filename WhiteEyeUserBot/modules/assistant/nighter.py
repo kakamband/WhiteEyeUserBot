@@ -86,12 +86,10 @@ async def job_close():
                         await tgbot.edit_permissions(
                             int(warner.chat_id), user.id, view_messages=False
                         )
-        except Exception as e:
-            info(f"Unable To Open Group {warner} - {e}")
 
 
 scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
-scheduler.add_job(job_close, trigger="cron", hour=12, minute=28)
+scheduler.add_job(job_close, trigger="cron", hour=12, minute=29)
 scheduler.start()
 
 
