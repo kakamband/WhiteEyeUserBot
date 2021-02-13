@@ -1,12 +1,19 @@
+imutils
+scikit-image
+imutils
 Pillow
 deezer-python
+moviepy
 google-trans-new
-nospamplus
 eyed3
+img2pdf
 pymediainfo
 apscheduler
+git+https://github.com/chsaiujwal/maigret
 git+https://github.com/gleitz/howdoi
 pyseoanalyzer
+fake_useragent
+pygifsicle
 pokedex.py
 faker
 tracemoepy
@@ -54,7 +61,6 @@ geopy
 gitpython
 google-api-python-client==1.8.0
 google-auth-oauthlib
-google_images_download>=2.7.1
 gsearch
 hachoir
 heroku3
@@ -86,6 +92,6 @@ wikipedia>=1.4.0
 youtube-search
 password_strength
 pyjokes
-cryptocompare
+cryptocompare==0.7.3
 googletrans
 pdf2docx
