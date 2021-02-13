@@ -1,6 +1,7 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from telethon import functions
 from telethon.tl.types import ChatBannedRights
+from WhiteEyeUserBot.Configs import Config
 
 from WhiteEyeUserBot.modules.sql_helper.night_mode_sql import (
     add_nightmode,
@@ -92,7 +93,7 @@ async def job_close():
 
 
 scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
-scheduler.add_job(job_close, trigger="cron", hour=12, minute=49)
+scheduler.add_job(job_close, trigger="cron", hour=12, minute=52)
 scheduler.start()
 
 
