@@ -73,24 +73,16 @@ async def job_close():
     for warner in ws_chats:
         try:
             await tgbot.send_message(
-                int(warner.chat_id),
-                "`12:00 Am, Group Is Closing Till 6 Am. Night Mode Started !` \n**Powered By @WhiteEyeDevs**",
+              int(warner.chat_id), "`12:00 Am, Group Is Closing Till 6 Am. Night Mode Started !` \n**Powered By @WhiteEyeDevs**"
             )
             await tgbot(
-                functions.messages.EditChatDefaultBannedRightsRequest(
-                    peer=int(warner.chat_id), banned_rights=hehes
-                )
-            )   
-            if Config.CLEAN_GROUPS:
-                async for user in tgbot.iter_participants(int(warner.chat_id)):
-                    if user.deleted:
-                        await tgbot.edit_permissions(
-                            int(warner.chat_id), user.id, view_messages=False
-                )
+            functions.messages.EditChatDefaultBannedRightsRequest(
+                peer=int(warner.chat_id), banned_rights=hehes
+            )
 
 
 scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
-scheduler.add_job(job_close, trigger="cron", hour=12, minute=58)
+scheduler.add_job(job_close, trigger="cron", hour=13, minute=0)
 scheduler.start()
 
 
