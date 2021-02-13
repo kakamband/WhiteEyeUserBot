@@ -16,8 +16,8 @@ import io
 import os
 import re
 
-from telethon import Button, custom, events, functions
 import telethon
+from telethon import Button, custom, events, functions
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.utils import pack_bot_file_id
 
@@ -34,6 +34,7 @@ from WhiteEyeUserBot.modules.sql_helper.idadder_sql import (
     already_added,
     get_all_users,
 )
+
 
 @assistant_cmd("start", is_args=False)
 async def start(event):
@@ -142,8 +143,10 @@ async def all_messages_catcher(event):
                 )
             )
         except telethon.errors.rpcerrorlist.UserNotParticipantError:
-            await event.reply(f"**Opps, I Couldn't Forward That Message To Owner. Please Join My Channel First And Then Try Again!**",
-                             buttons = [Button.url("Join Channel 🇮🇳", Config.JTM_CHANNEL_USERNAME)])
+            await event.reply(
+                f"**Opps, I Couldn't Forward That Message To Owner. Please Join My Channel First And Then Try Again!**",
+                buttons=[Button.url("Join Channel 🇮🇳", Config.JTM_CHANNEL_USERNAME)],
+            )
             return
     await event.get_sender()
     sed = await event.forward_to(bot.uid)
@@ -179,14 +182,13 @@ async def sed(event):
         )
 
 
-@assistant_cmd("broadcast", is_args='heck')
+@assistant_cmd("broadcast", is_args="heck")
 @god_only
 async def sedlyfsir(event):
     msgtobroadcast = event.text.split(" ", maxsplit=1)[1]
     userstobc = get_all_users()
     error_count = 0
     sent_count = 0
-    hmmok = ""
     if msgtobroadcast == None:
         await event.reply("`Wait. What? Broadcast None?`")
         return
