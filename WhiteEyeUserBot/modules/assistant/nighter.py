@@ -91,7 +91,7 @@ async def job_close():
 
 
 scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
-scheduler.add_job(job_close, trigger="cron", hour=12, minute=16)
+scheduler.add_job(job_close, trigger="cron", hour=12, minute=21)
 scheduler.start()
 
 
@@ -101,11 +101,11 @@ async def job_open():
         return
     for warner in ws_chats:
         try:
-            await WhiteEye.send_message(
+            await tgbot.send_message(
                 int(warner.chat_id),
                 "`06:00 Am, Group Is Opening.`\n**Powered By @WhiteEyeDevs**",
             )
-            await WhiteEye(
+            await tgbot(
                 functions.messages.EditChatDefaultBannedRightsRequest(
                     peer=int(warner.chat_id), banned_rights=openhehe
                 )
