@@ -796,9 +796,37 @@ async def yufytf(event):
     await borg.send_file(event.chat_id, ok, caption="Made By @WhiteEyeDevs")
     if os.path.exists(ok):
         os.remove(ok)
+        
 
+@WhiteEye.on(WhiteEye_on_cmd(pattern="(whiteeyelogo|ai|blacklogo|bl) ?(.*)"))
+async def yufytf(event):
+    if event.fwd_from:
+        return
+    await event.edit("`Processing..`")
+    text = event.pattern_match.group(2)
+    img = Image.open("./resources/nepo.jpg")
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.truetype("Fonts/Streamster.ttf", 220)
+    image_widthz, image_heightz = img.size
+    w, h = draw.textsize(text, font=font)
+    h += int(h * 0.21)
+    draw.text(
+        ((image_widthz - w) / 2, (image_heightz - h) / 2),
+        text,
+        font=font,
+        fill=(255, 255, 0),
+    )
+    file_name = "LogoBy@WhiteEyeDevs.png"
+    await event.delete()
+    ok = sedpath + "/" + file_name
+    img.save(ok, "PNG")
+    await borg.send_file(event.chat_id, ok, caption="Made By @WhiteEyeDevs")
+    if os.path.exists(ok):
+        os.remove(ok)
 
-@friday.on(friday_on_cmd(pattern="(certificategen|cg) ?(.*)"))
+        
+
+@WhiteEye.on(WhiteEye_on_cmd(pattern="(certificategen|cg) ?(.*)"))
 async def holastark(event):
     if event.fwd_from:
         return
