@@ -804,7 +804,7 @@ async def yufytf(event):
         return
     await event.edit("`Processing..`")
     text = event.pattern_match.group(2)
-    img = Image.open("./resources/linker.png")
+    img = Image.open("./resources/zipper.png")
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("Fonts/Pacifico-Regular.ttf", 220)
     image_widthz, image_heightz = img.size
