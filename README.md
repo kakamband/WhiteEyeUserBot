@@ -82,19 +82,6 @@ python -m WhiteEyeUserBot
 ```
 
 
-# CREDIT'S
-
-[TELEBOT](https://t.me/telebothelp)
-
-[CATUSERBOT](https://t.me/catuserbot17)
-
-[DARKCOBRA USERBOT](https://t.me/dark_cobra_support)
-
-[PAPERPLANE USERBOT](https://t.me/paperplanechannel)
-
-
-
-
 
 
 
