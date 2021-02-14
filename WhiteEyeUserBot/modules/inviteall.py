@@ -1,3 +1,5 @@
+#CREDITS TEAM DC
+
 import os
 
 from WhiteEyeUserBot import *
