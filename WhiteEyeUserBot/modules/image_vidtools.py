@@ -798,31 +798,34 @@ async def yufytf(event):
         os.remove(ok)
 
 
-@WhiteEye.on(WhiteEye_on_cmd(pattern="(whiteeyelogo|ai|blacklogo|bl) ?(.*)"))
-async def yufytf(event):
+@WhiteEye.on(WhiteEye_on_cmd(pattern="(slogo|si) ?(.*)"))
+async def slogo(event):
     if event.fwd_from:
         return
     await event.edit("`Processing..`")
     text = event.pattern_match.group(2)
     img = Image.open("./resources/linker.png")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("/resources/star/Chopsic.otf", 100)
     image_widthz, image_heightz = img.size
+    font = ImageFont.truetype("./resources/star/Chopsic.otf", 380)
     w, h = draw.textsize(text, font=font)
     h += int(h * 0.21)
+    image_width, image_height = img.size
     draw.text(
         ((image_widthz - w) / 2, (image_heightz - h) / 2),
         text,
         font=font,
-        fill=(255, 255, 0),
+        fill=(255, 255, 255),
     )
-    file_name = "LogoBy@WhiteEyeDevs.png"
-    await event.delete()
-    ok = sedpath + "/" + file_name
-    img.save(ok, "PNG")
-    await borg.send_file(event.chat_id, ok, caption="Made By @WhiteEyeDevs")
-    if os.path.exists(ok):
-        os.remove(ok)
+    x = (image_widthz - w) / 2
+    y = (image_heightz - h) / 2
+    draw.text(
+        (x, y), text, font=font, fill="white", stroke_width=30, stroke_fill="black"
+    )
+    fname2 = "LogoBy@whiteeyeuserbot.png"
+    img.save(fname2, "png")
+    await borg.send_file(event.chat_id, fname2, caption="Made By @WhiteEyeDevs")
+
 
 
 @WhiteEye.on(WhiteEye_on_cmd(pattern="(certificategen|cg) ?(.*)"))
