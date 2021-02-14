@@ -30,7 +30,7 @@ async def bots(event):
     for bot in Listed:
         checking = f"<b>☘️ @{bot} Status : Checking...♻️</b>\n\n"
         first_msg += checking
-        await reply.edit_text(first_msg, parse_mode="html")
+        await reply.edit(first_msg, parse_mode="html")
         snt = await tgbot.send_message(bot, "/start")
         time.sleep(5)
         msg = await tgbot.get_history(bot, 1)
@@ -39,9 +39,9 @@ async def bots(event):
         else:
             nice = f"<b>☘️ @{bot} Status : ✅</b>\n\n"
         first_msg = first_msg.replace(checking, nice)
-        await reply.edit_text(first_msg, parse_mode="html")
+        await reply.edit(first_msg, parse_mode="html")
         await tgbot.read_history(bot)
     tz = pytz.timezone("Asia/Kolkata")
     time_now = datetime.utcnow().astimezone(tz=tz).strftime("%I:%M %p - %d %B %Y")
     first_msg += f"<b>[Last Checked And Updated On : {time_now}]</b>"
-    await reply.edit_text(first_msg, parse_mode="html")
+    await reply.edit(first_msg, parse_mode="html")
