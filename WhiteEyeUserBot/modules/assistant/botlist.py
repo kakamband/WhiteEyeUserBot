@@ -10,11 +10,6 @@ UpdatesChannel = ("WhiteEyeBots")
 Botsz = ["WhiteEyeRenameBot", "WhiteEyeURLUploaderBot", "WhiteEyeTelegraphBot", "WhiteEyeLinkToFileBot", "WhiteEyeSubtitleBot", "WhiteEyeYouTubeBot", "WhiteEyeForceSubscriberBot", "WhiteEyeGDrivebot", "WhiteEyeTagRemoverBot", "WhiteEyeDeleteAllBot", "WhiteEyeCompressorBot", "Miss_ArantxaBot", "WhiteEyeURLShortnerBot", "FilmsRequestBot"]
 
 @assistant_cmd("botlist", is_args=True)
-    'header': "Pings All Defined Bots",
-    'description': "<b>Ping and Updates The Status Of All Defined Bots In 'BOTSZ' var</b>\n\n"
-                   "<b>Available Vars</b>:\n\n<i><code>UPDATES_CHANNEL</code> : Provide Your Channel Name With @"
-                   "<code>BOTSZ</code> : Define All Your Bot's Username With Out @ And Seperate Each With ','\n\n"
-})
 async def bots(message: Message):
     first_msg = "<b>List Of All Bots And Working Status In @WhiteEyeBots</b>\n_______________________________</b>\n\n"
     reply = await message.reply_text(first_msg,parse_mode="html")
