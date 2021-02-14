@@ -23,9 +23,9 @@ Botsz = [
 
 
 @assistant_cmd("botlist", is_args=True)
-async def bots(message: Message):
+async def bots(event):
     first_msg = "<b>List Of All Bots And Working Status In @WhiteEyeBots</b>\n_______________________________</b>\n\n"
-    reply = await message.reply_text(first_msg, parse_mode="html")
+    reply = await event.reply_text(first_msg, parse_mode="html")
     Listed = Botsz
     for bot in Listed:
         checking = f"<b>☘️ @{bot} Status : Checking...♻️</b>\n\n"
@@ -33,7 +33,7 @@ async def bots(message: Message):
         await reply.edit_text(first_msg, parse_mode="html")
         snt = await tgbot.send_message(bot, "/start")
         time.sleep(5)
-        msg = await userge.get_history(bot, 1)
+        msg = await tgbot.get_history(bot, 1)
         if snt.message_id == msg[0].message_id:
             nice = f"<b>☘️ @{bot} Status : ❌</b>\n\n"
         else:
