@@ -32,5 +32,5 @@ pm_caption += "[Assistant By WhiteEye 🇮🇳]"
 # only Owner Can Use it
 @assistant_cmd("alive", is_args=False)
 @peru_only
-async def friday(event):
+async def WhiteEye(event):
     await tgbot.send_file(event.chat_id, PM_IMG, caption=pm_caption)
