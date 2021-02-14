@@ -97,3 +97,4 @@ cryptocompare==0.7.3
 googletrans
 pdf2docx
 datetime
+pytz
