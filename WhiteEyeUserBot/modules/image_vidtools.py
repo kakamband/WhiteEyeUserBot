@@ -807,7 +807,7 @@ async def slogo(event):
     img = Image.open("./resources/linker.png")
     draw = ImageDraw.Draw(img)
     image_widthz, image_heightz = img.size
-    font = ImageFont.truetype("./resources/star/Chopsic.otf", 380)
+    font = ImageFont.truetype("./resources/star/Chopsic.otf", 50)
     w, h = draw.textsize(text, font=font)
     h += int(h * 0.21)
     image_width, image_height = img.size
