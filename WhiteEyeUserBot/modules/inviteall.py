@@ -1,4 +1,4 @@
-#CREDITS TEAM DC
+# CREDITS TEAM DC
 
 import os
 
