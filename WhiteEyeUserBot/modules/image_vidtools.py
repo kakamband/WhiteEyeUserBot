@@ -806,7 +806,7 @@ async def yufytf(event):
     text = event.pattern_match.group(2)
     img = Image.open("./resources/nepo.jpg")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("Fonts/Streamster.ttf", 220)
+    font = ImageFont.truetype("Fonts/Pacifico-Regular.ttf", 220)
     image_widthz, image_heightz = img.size
     w, h = draw.textsize(text, font=font)
     h += int(h * 0.21)
