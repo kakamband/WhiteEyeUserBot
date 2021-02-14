@@ -2,8 +2,6 @@ import time
 from datetime import datetime
 
 import pytz
-from telethon.tl.types import MessageEntityMentionName
-
 
 UpdatesChannel = "WhiteEyeBots"
 Botsz = [
