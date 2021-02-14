@@ -806,7 +806,7 @@ async def yufytf(event):
     text = event.pattern_match.group(2)
     img = Image.open("./resources/white.png")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("Fonts/PermanentMarker-Regular.ttf", 200)
+    font = ImageFont.truetype("Fonts/GreatVibes-Regular.ttf", 150)
     image_widthz, image_heightz = img.size
     w, h = draw.textsize(text, font=font)
     h += int(h * 0.21)
