@@ -31,9 +31,9 @@ async def bots(event):
         checking = f"<b>☘️ @{bot} Status : Checking...♻️</b>\n\n"
         first_msg += checking
         await reply.edit(first_msg, parse_mode="html")
-        snt = await bot.send_message(bot, "/start")
+        snt = await WhiteEye.send_message(bot, "/start")
         time.sleep(5)
-        msg = await bot.get_history(bot, 1)
+        msg = await WhiteEye.get_history(bot, 1)
         if snt.message_id == msg[0].message_id:
             nice = f"<b>☘️ @{bot} Status : ❌</b>\n\n"
         else:
