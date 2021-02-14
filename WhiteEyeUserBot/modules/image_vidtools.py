@@ -827,7 +827,6 @@ async def slogo(event):
     await borg.send_file(event.chat_id, fname2, caption="Made By @WhiteEyeDevs")
 
 
-
 @WhiteEye.on(WhiteEye_on_cmd(pattern="(certificategen|cg) ?(.*)"))
 async def holastark(event):
     if event.fwd_from:
