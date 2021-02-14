@@ -31,16 +31,16 @@ async def bots(event):
         checking = f"<b>☘️ @{bot} Status : Checking...♻️</b>\n\n"
         first_msg += checking
         await reply.edit(first_msg, parse_mode="html")
-        snt = await send_message(bot, "/start")
+        snt = await tgbot.send_message(bot, "/start")
         time.sleep(5)
-        msg = await get_history(bot, 1)
+        msg = await tgbot.get_history(bot, 1)
         if snt.message_id == msg[0].message_id:
             nice = f"<b>☘️ @{bot} Status : ❌</b>\n\n"
         else:
             nice = f"<b>☘️ @{bot} Status : ✅</b>\n\n"
         first_msg = first_msg.replace(checking, nice)
         await reply.edit(first_msg, parse_mode="html")
-        await read_history(bot)
+        await tgbot.read_history(bot)
     tz = pytz.timezone("Asia/Kolkata")
     time_now = datetime.utcnow().astimezone(tz=tz).strftime("%I:%M %p - %d %B %Y")
     first_msg += f"<b>[Last Checked And Updated On : {time_now}]</b>"
