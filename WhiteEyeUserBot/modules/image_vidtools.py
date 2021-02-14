@@ -796,7 +796,7 @@ async def yufytf(event):
     await borg.send_file(event.chat_id, ok, caption="Made By @WhiteEyeDevs")
     if os.path.exists(ok):
         os.remove(ok)
-        
+
 
 @WhiteEye.on(WhiteEye_on_cmd(pattern="(whiteeyelogo|ai|blacklogo|bl) ?(.*)"))
 async def yufytf(event):
@@ -824,7 +824,6 @@ async def yufytf(event):
     if os.path.exists(ok):
         os.remove(ok)
 
-        
 
 @WhiteEye.on(WhiteEye_on_cmd(pattern="(certificategen|cg) ?(.*)"))
 async def holastark(event):
