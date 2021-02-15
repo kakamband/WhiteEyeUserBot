@@ -1,19 +1,17 @@
-imutils
-scikit-image
-imutils
 Pillow
 deezer-python
 moviepy
 google-trans-new
+git+https://github.com/tushar-rishav/code2pdf
 eyed3
 img2pdf
 pymediainfo
 apscheduler
 git+https://github.com/chsaiujwal/maigret
 git+https://github.com/gleitz/howdoi
-rotten_tomatoes_client
 pyseoanalyzer
 fake_useragent
+rotten_tomatoes_client
 pygifsicle
 pokedex.py
 faker
@@ -96,5 +94,3 @@ pyjokes
 cryptocompare==0.7.3
 googletrans
 pdf2docx
-datetime
-pytz
