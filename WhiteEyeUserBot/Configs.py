@@ -279,7 +279,7 @@ elif ENV:
         ANTISPAM_FEATURE = os.environ.get("ANTISPAM_FEATURE", "ENABLE")
         ASSISTANT_LOG = int(os.environ.get("ASSISTANT_LOG", False))
         UPSTREAM_REPO = os.environ.get(
-            "UPSTREAM_REPO", "https://github.com/WhiteEye-Org/WhiteEyeUserBott"
+            "UPSTREAM_REPO", "https://github.com/WhiteEye-Org/WhiteEyeUserBot"
         )
         ALIVE_IMAGE = os.environ.get(
             "ALIVE_IMAGE", "https://telegra.ph/file/e41d27e913a961d105d4d.jpg"
