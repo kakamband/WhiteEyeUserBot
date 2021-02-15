@@ -40,11 +40,11 @@ async def _(event):
     if event.fwd_from:
         return
     hmm = await bot.get_me()
-    rip = (f"[{hmm.first_name}](tg://user?id={hmm.id})")
+    rip = f"[{hmm.first_name}](tg://user?id={hmm.id})"
     if not hmm.username:
         hmm.username = hmm.id
     bothmm = await tgbot.get_me()
-    botrip = (f"[{bothmm.first_name}](tg://user?id={bothmm.id})")
+    botrip = f"[{bothmm.first_name}](tg://user?id={bothmm.id})"
     start = datetime.now()
     end = datetime.now()
     ms = (end - start).microseconds / 1000
