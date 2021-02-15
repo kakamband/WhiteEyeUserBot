@@ -1,28 +1,18 @@
-from WhiteEyeUserBot import CMD_HELP, CMD_LIST
-from WhiteEyeUserBot.utils import WhiteEye_on_cmd, sudo_cmd
-import time
-from telethon import __version__ as tv
-import sys
-import platform
-from git import Repo
-from uniborg.util import WhiteEye_on_cmd, sudo_cmd
-from WhiteEyeUserBot import ALIVE_NAME, CMD_HELP, Lastupdate, WhiteEye_version
-from WhiteEyeUserBot.Configs import Config
-from WhiteEyeUserBot.modules import currentversion
-import time
 import asyncio
 import os
-from pathlib import Path
-import asyncio
 import sys
+import time
 from os import environ, execle, path, remove
+from pathlib import Path
 
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
+from uniborg.util import WhiteEye_on_cmd, sudo_cmd
 
-from WhiteEyeUserBot import CMD_HELP
-from WhiteEyeUserBot.utils import WhiteEye_on_cmd
+from WhiteEyeUserBot import ALIVE_NAME, CMD_HELP, CMD_LIST, Lastupdate
 from WhiteEyeUserBot.Configs import Config
+from WhiteEyeUserBot.modules import currentversion
+from WhiteEyeUserBot.utils import WhiteEye_on_cmd, sudo_cmd
 
 UPSTREAM_REPO_URL = Config.UPSTREAM_REPO
 UPSTREAM_REPO_BRANCH = "master"
@@ -32,13 +22,15 @@ requirements_path = path.join(
     path.dirname(path.dirname(path.dirname(__file__))), "requirements.txt"
 )
 
-from WhiteEyeUserBot.utils import WhiteEye_on_cmd, load_module
-from WhiteEyeUserBot.function import get_all_modules
 from WhiteEyeUserBot import CMD_HELP
+from WhiteEyeUserBot.function import get_all_modules
+from WhiteEyeUserBot.utils import WhiteEye_on_cmd, load_module
+
 DELETE_TIMEOUT = 5
 from datetime import datetime
+
 from WhiteEyeUserBot import CMD_HELP, Lastupdate
-from WhiteEyeUserBot.utils import edit_or_reply, WhiteEye_on_cmd, sudo_cmd
+from WhiteEyeUserBot.utils import WhiteEye_on_cmd, edit_or_reply, sudo_cmd
 
 
 # Functions
@@ -82,23 +74,25 @@ async def fridayalive(alive):
     await alive.get_chat()
     uptime = get_readable_time((time.time() - Lastupdate))
     repo = Repo()
-    branch_name = repo.active_branch.name
-    pm_caption = ("👑 My WhiteEye Is WORKING Successfully 👑\n\n"
-                  "✯ **WhiteEye STATS**\n"
-                  "✯ **Telethon Version:** `1.15.0` \n"
-                  f"➥ **WhiteEye Version** : `{currentversion}`\n"
-                  "✯ **Python:** `3.7.4` \n"
-                  f"✯ **Uptime** : `{uptime}` \n"
-                  "✯ **Database Status:**  `Functional`\n"
-                  "✯ **Current Branch** : `master`\n"
-                  f"✯ **My Boss** : {DEFAULTUSER} \n"
-                  "✯ **Heroku Database** : `AWS - Working Properly`\n\n"
-                  "✯**[Join Our Channel]**(https://t.me/WhiteEyeOT)\n"
-                  "✯ **License** : [GNU General Public License v3.0](https://github.com/whiteeye-org/WhiteEyeUserBot/blob/main/LICENSE)\n"
-                  "✯ **Copyright** : By [WhiteEye](https://t.me/WhiteEyeDevs)\n"
-                  "➥ **Check Stats By Doing** `.stat`. \n\n"
-                  "[🇮🇳 Deploy WhiteEyeUserBot 🇮🇳](https://whiteeye-org.github.io/WhiteEyeUserBot/)")
-    
+    repo.active_branch.name
+    pm_caption = (
+        "👑 My WhiteEye Is WORKING Successfully 👑\n\n"
+        "✯ **WhiteEye STATS**\n"
+        "✯ **Telethon Version:** `1.15.0` \n"
+        f"➥ **WhiteEye Version** : `{currentversion}`\n"
+        "✯ **Python:** `3.7.4` \n"
+        f"✯ **Uptime** : `{uptime}` \n"
+        "✯ **Database Status:**  `Functional`\n"
+        "✯ **Current Branch** : `master`\n"
+        f"✯ **My Boss** : {DEFAULTUSER} \n"
+        "✯ **Heroku Database** : `AWS - Working Properly`\n\n"
+        "✯**[Join Our Channel]**(https://t.me/WhiteEyeOT)\n"
+        "✯ **License** : [GNU General Public License v3.0](https://github.com/whiteeye-org/WhiteEyeUserBot/blob/main/LICENSE)\n"
+        "✯ **Copyright** : By [WhiteEye](https://t.me/WhiteEyeDevs)\n"
+        "➥ **Check Stats By Doing** `.stat`. \n\n"
+        "[🇮🇳 Deploy WhiteEyeUserBot 🇮🇳](https://whiteeye-org.github.io/WhiteEyeUserBot/)"
+    )
+
     await borg.send_message(
         alive.chat_id,
         pm_caption,
@@ -131,7 +125,8 @@ async def _(event):
         await event.edit(
             "Please specify which module you want help for!\n\n" f"{string}"
         )
-        
+
+
 @WhiteEye.on(WhiteEye_on_cmd(pattern="ping$"))
 @WhiteEye.on(sudo_cmd(pattern="ping$", allow_sudo=True))
 async def _(event):
@@ -139,11 +134,11 @@ async def _(event):
     if event.fwd_from:
         return
     hmm = await bot.get_me()
-    rip = (f"[{hmm.first_name}](tg://user?id={hmm.id})")
+    rip = f"[{hmm.first_name}](tg://user?id={hmm.id})"
     if not hmm.username:
         hmm.username = hmm.id
     bothmm = await tgbot.get_me()
-    botrip = (f"[{bothmm.first_name}](tg://user?id={bothmm.id})")
+    botrip = f"[{bothmm.first_name}](tg://user?id={bothmm.id})"
     start = datetime.now()
     end = datetime.now()
     ms = (end - start).microseconds / 1000
@@ -185,7 +180,8 @@ async def install(event):
             os.remove(downloaded_file_name)
     await asyncio.sleep(DELETE_TIMEOUT)
     await event.delete()
-    
+
+
 #    Copyright (C) Dayam Zaidi 2020-2021
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -199,19 +195,24 @@ async def install(event):
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-@borg.on(WhiteEye_on_cmd(pattern='pl ?(.*)'))
+
+@borg.on(WhiteEye_on_cmd(pattern="pl ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
     lul = event.pattern_match.group(1)
     yesm, nope, total_p = await get_all_modules(event, borg, lul)
-    await event.edit(f"Installed {yesm} PLugins. Failed To Install {nope} Plugins And There Were Total {total_p} Plugins")
-    
+    await event.edit(
+        f"Installed {yesm} PLugins. Failed To Install {nope} Plugins And There Were Total {total_p} Plugins"
+    )
+
+
 # Copyright (C) 2019 The Raphielscape Company LLC.
 #
 # Licensed under the Raphielscape Public License, Version 1.c (the "License");
 # you may not use this file except in compliance with the License.
 # credits to @AvinashReddy3108
+
 
 async def gen_chlog(repo, diff):
     ch_log = "**ChangeLog** \n\n"
@@ -399,6 +400,7 @@ async def upstream(event):
         await update(event, repo, ups_rem, ac_br)
     return
 
+
 @borg.on(WhiteEye_on_cmd(pattern="helper ?(.*)"))
 async def cmd_list(event):
     if event.fwd_from:
@@ -439,7 +441,8 @@ For More Help or Support Visit @WhiteEyeDevs"""
                 event.chat_id, reply_to=event.reply_to_msg_id, hide_via=True
             )
             await event.delete()
-            
+
+
 CMD_HELP.update(
     {
         "update": ">`.update`"
