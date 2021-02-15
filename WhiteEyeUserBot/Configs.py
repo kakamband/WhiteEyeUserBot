@@ -53,6 +53,7 @@ elif ENV:
         YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
         ALIVE_NAME = os.environ.get("ALIVE_NAME", None)
         LESS_SPAMMY = os.environ.get("LESS_SPAMMY", True)
+        TG_BOT_USER_NAME_BF_HER = os.environ.get("TG_BOT_USER_NAME_BF_HER", None)
         COUNTRY = str(os.environ.get("COUNTRY", ""))
         TZ_NUMBER = int(os.environ.get("TZ_NUMBER", 1))
         CLEAN_WELCOME = sb(os.environ.get("CLEAN_WELCOME", "True"))
