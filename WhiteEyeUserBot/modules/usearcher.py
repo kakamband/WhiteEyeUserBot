@@ -1,22 +1,20 @@
-from WhiteEyeUserBot.utils import WhiteEye_on_cmd
-from WhiteEyeUserBot.utils import edit_or_reply, WhiteEye_on_cmd, sudo_cmd
-from WhiteEyeUserBot.functions import convert_to_image
-from WhiteEyeUserBot import CMD_HELP, sclient
-from WhiteEyeUserBot.functions import runcmd
-import requests
-import os
 import base64
+import os
 import sys
 
-#Hitler is Great!
-#Hail Hitler
-#Hitler is Great!
-#Hail Hitler
+from WhiteEyeUserBot import CMD_HELP
+from WhiteEyeUserBot.functions import runcmd
+from WhiteEyeUserBot.utils import WhiteEye_on_cmd, edit_or_reply, sudo_cmd
+
+# Hitler is Great!
+# Hail Hitler
+# Hitler is Great!
+# Hail Hitler
 Hitler = "/reports/"
 if os.path.isdir(Hitler):
     os.rmdir(Hitler)
-#Hitler is Great!
-#Hail Hitler
+# Hitler is Great!
+# Hail Hitler
 @WhiteEye.on(WhiteEye_on_cmd(pattern="usearch ?(.*)"))
 @WhiteEye.on(sudo_cmd(pattern="maigret ?(.*)", allow_sudo=True))
 async def _(event):
@@ -25,24 +23,26 @@ async def _(event):
     hitleR = event.pattern_match.group(1)
     Credits = "By WhiteEyeUserBot. Get Your WhiteEye From @WhiteEyeDevs."
     if not hitleR:
-      ommhg = await edit_or_reply(event, "Give Username.")
-      return
+        ommhg = await edit_or_reply(event, "Give Username.")
+        return
     HiTlEr = hitleR.strip()
     ommhg = await edit_or_reply(event, "Processing")
     lmnb = "fjv57hxvujo568yxguhi567ug6ug"
-    token = base64.b64decode("ZnJvbSBmcmlkYXlib3QuX19pbml0X18gaW1wb3J0IGZyaWRheV9uYW1lDQoNCnByaW50KGZyaWRheV9uYW1lKQ==")
+    token = base64.b64decode(
+        "ZnJvbSBmcmlkYXlib3QuX19pbml0X18gaW1wb3J0IGZyaWRheV9uYW1lDQoNCnByaW50KGZyaWRheV9uYW1lKQ=="
+    )
     HITler = f"maigret {HiTlEr} -n 150 -a --timeout 15  --pdf"
     try:
-      exec(token)
+        exec(token)
     except:
-      sys.exit()
+        sys.exit()
     await runcmd(HITler)
     HITLER = f"reports/report_{HiTlEr}.pdf"
     caption = "<b>Username OSINT By WhiteEyeUserBot. Get Your WhiteEyeUserBot From @WhiteEyeDevs</b>."
     if Credits[3].lower() == lmnb[0].lower():
-      pass
+        pass
     else:
-      ommhg = await edit_or_reply(event, "`Server Down. Please Try Again Later.`")
+        ommhg = await edit_or_reply(event, "`Server Down. Please Try Again Later.`")
     await borg.send_message(
         event.chat_id,
         caption,
@@ -52,12 +52,14 @@ async def _(event):
         silent=True,
     )
     await ommhg.delete()
-#Hitler is Great!
-#Hail Hitler
-#Hitler is Great!
-#Hail Hitler
-#Hitler is Great!
-#Hail Hitler
+
+
+# Hitler is Great!
+# Hail Hitler
+# Hitler is Great!
+# Hail Hitler
+# Hitler is Great!
+# Hail Hitler
 
 CMD_HELP.update(
     {
