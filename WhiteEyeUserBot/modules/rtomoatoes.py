@@ -1,8 +1,7 @@
-from WhiteEyeUserBot import CMD_HELP, sclient
-from WhiteEyeUserBot.utils import edit_or_reply, WhiteEye_on_cmd, sudo_cmd, admin_cmd
-import sys
-import base64
 from rotten_tomatoes_client import RottenTomatoesClient
+
+from WhiteEyeUserBot import CMD_HELP
+from WhiteEyeUserBot.utils import WhiteEye_on_cmd, sudo_cmd
 
 
 @WhiteEye.on(WhiteEye_on_cmd(pattern="rt (.*)"))
@@ -12,11 +11,11 @@ async def _(event):
         return
     input_str = event.pattern_match.group(1)
     result = RottenTomatoesClient.search(term=input_str, limit=1)
-    
+
     l = result.get("movies")[0]
     name = l.get("name")
     year = l.get("year")
-    image = l.get("image")
+    l.get("image")
     Classe = l.get("meterClass")
     Meter = l.get("meterScore")
     ullu = l.get("url")
@@ -24,7 +23,7 @@ async def _(event):
     Ceset = l.get("castItems")
     cast = ""
     for Hitler in Ceset:
-      cast += Hitler.get("name") +"\n"
+        cast += Hitler.get("name") + "\n"
     caption = f"""Name : {name}
 Year Of Release : {year}
 Link : {url}
@@ -36,8 +35,6 @@ Cast :
         event.chat_id,
         caption,
     )
-    
-    
 
 
 CMD_HELP.update(
