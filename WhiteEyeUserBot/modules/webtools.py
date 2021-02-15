@@ -13,13 +13,15 @@
 
 import random
 import socket
+
 import requests
 from iplookup import iplookup
 from selenium import webdriver
 from youtube_search import YoutubeSearch
-from WhiteEyeUserBot.functions import apk_dl, Track_Mobile_Number
+
 from WhiteEyeUserBot import CMD_HELP
-from WhiteEyeUserBot.utils import edit_or_reply, WhiteEye_on_cmd, sudo_cmd
+from WhiteEyeUserBot.functions import Track_Mobile_Number, apk_dl
+from WhiteEyeUserBot.utils import WhiteEye_on_cmd, edit_or_reply, sudo_cmd
 
 
 @WhiteEye.on(WhiteEye_on_cmd(pattern="wshot ?(.*)"))
@@ -39,19 +41,19 @@ async def _(event):
         file=imgpath,
         caption=f"**WEBSHOT OF** `{urlissed}` \n**Powered By @WhiteEyeDevs**",
     )
-    
-    
+
+
 @WhiteEye.on(WhiteEye_on_cmd(pattern="rmeme$"))
 @WhiteEye.on(sudo_cmd(pattern="rmeme$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
     await event.delete()
-    hmm_s = 'https://some-random-api.ml/meme'
+    hmm_s = "https://some-random-api.ml/meme"
     r = requests.get(url=hmm_s).json()
-    image_s = r['image']
-    await borg.send_file(event.chat_id, file=image_s, caption=r['caption'])
-    
+    image_s = r["image"]
+    await borg.send_file(event.chat_id, file=image_s, caption=r["caption"])
+
 
 @WhiteEye.on(WhiteEye_on_cmd(pattern="lp ?(.*)"))
 @WhiteEye.on(sudo_cmd(pattern="lp ?(.*)", allow_sudo=True))
@@ -181,15 +183,17 @@ async def _(event):
         await stark_result.edit(noob, parse_mode="HTML")
     except:
         await event.edit("Some Thing Went Wrong.")
-        
+
+
 @WhiteEye.on(WhiteEye_on_cmd(pattern="apk ?(.*)"))
 async def _(event):
     akkad = event.pattern_match.group(1)
     if event.fwd_from:
         return
     pathz, name = await apk_dl(akkad, Config.TMP_DOWNLOAD_DIRECTORY, event)
-    await borg.send_file(event.chat_id, pathz, caption='Uploaded By @FRidayOT')
-    
+    await borg.send_file(event.chat_id, pathz, caption="Uploaded By @FRidayOT")
+
+
 @WhiteEye.on(WhiteEye_on_cmd(pattern="(numberlookup|nl) ?(.*)"))
 async def _(event):
     if event.fwd_from:
@@ -204,25 +208,32 @@ async def _(event):
     for i in warner:
         hmm += f"<u><b>{i}</u></b> ➠ <code>{warner[i]}</code> \n"
     await event.edit(hmm, parse_mode="HTML")
-    
+
+
 @WhiteEye.on(WhiteEye_on_cmd(pattern="(comedyme|jokes)$"))
 async def hehe(event):
     if event.fwd_from:
         return
-    r = requests.get("https://icanhazdadjoke.com/", headers={"Accept": "application/json"}).json()
-    await event.edit(r['joke'])
-    
+    r = requests.get(
+        "https://icanhazdadjoke.com/", headers={"Accept": "application/json"}
+    ).json()
+    await event.edit(r["joke"])
+
+
 @WhiteEye.on(WhiteEye_on_cmd(pattern="randomgif ?(.*)"))
 async def gif_world(event):
     if event.fwd_from:
         return
-    hu = event.pattern_match.group(2).replace(' ', '+')
+    hu = event.pattern_match.group(2).replace(" ", "+")
     url = f"https://api.tenor.com/v1/random?q={hu}&contentfilter=medium"
     r = requests.get(url=url).json()
     await event.delete()
-    giff = r["results"][random.randint(0, len(r["results"]) - 1)]["media"][0]["gif"]["url"]
+    giff = r["results"][random.randint(0, len(r["results"]) - 1)]["media"][0]["gif"][
+        "url"
+    ]
     await borg.send_file(event.chat_id, giff, caption="Powered By @WhiteEyeDevs")
-    
+
+
 @WhiteEye.on(WhiteEye_on_cmd(pattern="(randomeme|memegen)$"))
 async def meme_world(event):
     if event.fwd_from:
@@ -230,8 +241,11 @@ async def meme_world(event):
     url = f"https://some-random-api.ml/meme"
     r = requests.get(url=url).json()
     await event.delete()
-    await borg.send_file(event.chat_id, r['image'], caption="**Meme Gen** - Powered By @WhiteEyeDevs")
-    
+    await borg.send_file(
+        event.chat_id, r["image"], caption="**Meme Gen** - Powered By @WhiteEyeDevs"
+    )
+
+
 @WhiteEye.on(WhiteEye_on_cmd(pattern="genderguess (.*)"))
 async def what(event):
     if event.fwd_from:
@@ -239,13 +253,15 @@ async def what(event):
     starky = event.pattern_match.group(1)
     url = f"https://api.diversitydata.io/?fullname={starky}"
     r = requests.get(url=url).json()
-    hmm = (f"**Name :** `{r['fullname']}` \n"
-           f"**Gender :** `{r['gender']}` \n"
-           f"**Ethnicity :** `{r['ethnicity']}` \n"
-           f"**Probability :** `{r['gender probability']}`")
+    hmm = (
+        f"**Name :** `{r['fullname']}` \n"
+        f"**Gender :** `{r['gender']}` \n"
+        f"**Ethnicity :** `{r['ethnicity']}` \n"
+        f"**Probability :** `{r['gender probability']}`"
+    )
     await event.edit(hmm)
-     
-     
+
+
 @WhiteEye.on(WhiteEye_on_cmd(pattern="hostlookup (.*)"))
 async def hecks(event):
     if event.fwd_from:
@@ -257,7 +273,8 @@ async def hecks(event):
         await event.edit("Check Your Fking IP")
         return
     await event.edit(f"**Host Name :** `{kk}`")
-    
+
+
 CMD_HELP.update(
     {
         "webtools": "**Web Tools**\
