@@ -1,4 +1,4 @@
-#    Copyright (C) Midhun KM 2020-2021
+#    Copyright (C) Dayam Zaidi 2020-2021
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
@@ -18,6 +18,7 @@ import re
 from telethon import events
 
 from WhiteEyeUserBot import bot
+from WhiteEyeUserBot.Configs import Config
 from WhiteEyeUserBot.Configs import Config
 
 
