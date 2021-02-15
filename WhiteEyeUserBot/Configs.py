@@ -15,26 +15,83 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # you may not use this file except in compliance with the License.
 
-import os
 
+import os
+import asyncio
+import logging
+import os
+import sys
+import time
+from distutils.util import strtobool as sb
 from telethon.tl.types import ChatBannedRights
+import pylast
+import wget
+from dotenv import load_dotenv
+from pylast import LastFMNetwork, md5
+
 
 ENV = bool(os.environ.get("ENV", False))
 if not ENV:
     from local_config import Development as Config
 elif ENV:
-
     class Config(object):
         LOGGER = True
         APP_ID = int(os.environ.get("APP_ID", 6))
+        PM_AUTO_BAN = sb(os.environ.get("PM_AUTO_BAN", "False"))
+        CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
+        DB_URI = os.environ.get("DATABASE_URL", None)
+        OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
+        REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
+        CHROME_DRIVER = os.environ.get("CHROME_DRIVER", "/usr/bin/chromedriver")
+        GOOGLE_CHROME_BIN = os.environ.get("GOOGLE_CHROME_BIN", "/usr/bin/google-chrome")
+        HEROKU_MEMEZ = sb(os.environ.get("HEROKU_MEMEZ", "False"))
+        HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
+        HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
+        PMPERMIT_PIC = os.environ.get("PMPERMIT_PIC", None)
+        HELP_EMOJI = os.environ.get("HELP_EMOJI", None)
+        AUTONAME = os.environ.get("AUTONAME", None)
+        CUSTOM_PMPERMIT = os.environ.get("CUSTOM_PMPERMIT", None)
+        OPEN_WEATHER_MAP_APPID = os.environ.get("OPEN_WEATHER_MAP_APPID", None)
+        ANTI_SPAMBOT = sb(os.environ.get("ANTI_SPAMBOT", "False"))
+        PRIVATE_GROUP_BOT_API_ID = os.environ.get("PRIVATE_GROUP_BOT_API_ID", None)
+        ANTI_SPAMBOT_SHOUT = sb(os.environ.get("ANTI_SPAMBOT_SHOUT", "False"))
+        YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
+        ALIVE_NAME = os.environ.get("ALIVE_NAME", None)
+        LESS_SPAMMY = os.environ.get("LESS_SPAMMY", True)
+        COUNTRY = str(os.environ.get("COUNTRY", ""))
+        TZ_NUMBER = int(os.environ.get("TZ_NUMBER", 1))
+        CLEAN_WELCOME = sb(os.environ.get("CLEAN_WELCOME", "True"))
+        SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
+        ANTISPAM_SYSTEM = os.environ.get("ANTISPAM_SYSTEM", "DISABLE")
+        WHITE_CHAT = PRIVATE_GROUP_ID = int(os.environ.get("WHITE_CHAT", False))
+        BIO_PREFIX = os.environ.get("BIO_PREFIX", None)
+        DEFAULT_BIO = os.environ.get("DEFAULT_BIO", None)
+        LASTFM_API = os.environ.get("LASTFM_API", None)
+        LASTFM_SECRET = os.environ.get("LASTFM_SECRET", None)
+        LASTFM_USERNAME = os.environ.get("LASTFM_USERNAME", None)
+        LASTFM_PASSWORD_PLAIN = os.environ.get("LASTFM_PASSWORD", None)
+        LASTFM_PASS = pylast.md5(LASTFM_PASSWORD_PLAIN)
+        if not LASTFM_USERNAME == "None":
+           lastfm = pylast.LastFMNetwork(
+               api_key=LASTFM_API,
+               api_secret=LASTFM_SECRET,
+               username=LASTFM_USERNAME,
+               password_hash=LASTFM_PASS,
+           )
+        else:
+           lastfm = None
+        G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID", None)
+        G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET", None)
+        G_DRIVE_AUTH_TOKEN_DATA = os.environ.get("G_DRIVE_AUTH_TOKEN_DATA", None)
+        GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", None)
+        TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./downloads")
+        BOTLOG = sb(os.environ.get("BOTLOG", "False"))
         TZ = os.environ.get("TZ", "Asia/Kolkata")
         API_HASH = os.environ.get("API_HASH", "eb06d4abfb49dc3eeb1aeb98ae0f581e")
-        STRING_SESSION = os.environ.get("STRING_SESSION", None)
         CLEAN_GROUPS = os.environ.get("CLEAN_GROUPS", False)
+        STRING_SESSION = os.environ.get("STRING_SESSION", None)
         DB_URI = os.environ.get("DATABASE_URL", None)
-        TEMP_DOWNLOAD_DIRECTORY = os.environ.get(
-            "TEMP_DOWNLOAD_DIRECTORY", "./WhiteEyeUserBot/DOWNLOADS/"
-        )
+        TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", './WhiteEyeUserBot/DOWNLOADS/')
         LOGGER = True
         GITHUB_ACCESS_TOKEN = os.environ.get("GITHUB_ACCESS_TOKEN", None)
         GIT_REPO_NAME = os.environ.get("GIT_REPO_NAME", None)
@@ -51,8 +108,6 @@ elif ENV:
         PRIVATE_GROUP_BOT_API_ID = int(os.environ.get("PRIVATE_GROUP_BOT_API_ID", -100))
         NO_SONGS = bool(os.environ.get("NO_SONGS", False))
         PING_SERVERS = bool(os.environ.get("PING_SERVERS", False))
-        TG_BOT_USER_NAME_BF_HER = os.environ.get("TG_BOT_USER_NAME_BF_HER", None)
-        NO_SONGS = bool(os.environ.get("NO_SONGS", False))
         DOWNLOAD_PFP_URL_CLOCK = os.environ.get("DOWNLOAD_PFP_URL_CLOCK", None)
         G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID", None)
         G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET", None)
@@ -78,6 +133,7 @@ elif ENV:
         STRING_SESSION_3 = os.environ.get("STRING_SESSION_3", None)
         VIRUSTOTAL_API_KEY = os.environ.get("VIRUSTOTAL_API_KEY", None)
         GPLINKS_API_KEY = os.environ.get("GPLINKS_API_KEY", None)
+        NSFW_FILTER_PM = os.environ.get("NSFW_FILTER_PM", True)
         SUPERHERO_API_KEY = os.environ.get("SUPERHERO_API_KEY", None)
         FOOTBALL_API_KEY = os.environ.get("FOOTBALL_API_KEY", None)
         SUB_TO_MSG_ASSISTANT = os.environ.get("SUB_TO_MSG_ASSISTANT", False)
@@ -104,28 +160,20 @@ elif ENV:
         # Get a Free API Key from OCR.Space
         OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
         DEEP_API_KEY = os.environ.get("DEEP_API_KEY", None)
-        PING_SERVER_EVERY_MINUTE_VALUE = int(
-            os.environ.get("PING_SERVER_EVERY_MINUTE_VALUE", 30)
-        )
+        PING_SERVER_EVERY_MINUTE_VALUE = int(os.environ.get("PING_SERVER_EVERY_MINUTE_VALUE", 30))
         DEEZER_ARL_TOKEN = os.environ.get("DEEZER_ARL_TOKEN", None)
-        NOSPAMPLUS_TOKEN = os.environ.get("NOSPAMPLUS_TOKEN", None)
         # Send .get_id in any group with all your administration bots (added)
         G_BAN_LOGGER_GROUP = int(os.environ.get("G_BAN_LOGGER_GROUP", -1001198699233))
         # TG API limit. An album can have atmost 10 media!
         GOOGLE_SEARCH_COUNT_LIMIT = int(os.environ.get("GOOGLE_SEARCH_COUNT_LIMIT", 9))
         TG_GLOBAL_ALBUM_LIMIT = int(os.environ.get("TG_GLOBAL_ALBUM_LIMIT", 9))
-        # Telegram BOT Token from @BotFather
-        TG_BOT_TOKEN_BF_HER = os.environ.get("TG_BOT_TOKEN_BF_HER", None)
-        TG_BOT_USER_NAME_BF_HER = os.environ.get("TG_BOT_USER_NAME_BF_HER", None)
         PRIVATE_GROUP_BOT_API_ID = int(
             os.environ.get("PRIVATE_GROUP_BOT_API_ID", False)
         )
         DISABLE_MARKDOWN = os.environ.get("DISABLE_MARKDOWN", False)
         # Load Spammy Plugins, Which can be harmful.
         LOAD_OTHER_PLUGINS = os.environ.get("LOAD_OTHER_PLUGINS", False)
-        LOAD_OTHER_PLUGINS_CHNNL = os.environ.get(
-            "LOAD_OTHER_PLUGINS_CHNNL", "@WhiteEyePlugins"
-        )
+        LOAD_OTHER_PLUGINS_CHNNL = os.environ.get("LOAD_OTHER_PLUGINS_CHNNL", "@WhiteEyePlugins")
         #
         # DO NOT EDIT BELOW THIS LINE IF YOU DO NOT KNOW WHAT YOU ARE DOING
         # TG API limit. A message can have maximum 4096 characters!
@@ -227,7 +275,7 @@ elif ENV:
         ANTISPAM_FEATURE = os.environ.get("ANTISPAM_FEATURE", "ENABLE")
         ASSISTANT_LOG = int(os.environ.get("ASSISTANT_LOG", False))
         UPSTREAM_REPO = os.environ.get(
-            "UPSTREAM_REPO", "https://github.com/WhiteEye-Org/WhiteEyeUserBot"
+            "UPSTREAM_REPO", "https://github.com/WhiteEye-Org/WhiteEyeUserBott"
         )
         ALIVE_IMAGE = os.environ.get(
             "ALIVE_IMAGE", "https://telegra.ph/file/e41d27e913a961d105d4d.jpg"
