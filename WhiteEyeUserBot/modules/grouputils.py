@@ -6,21 +6,12 @@
 Userbot module to help you manage a group
 """
 
+import asyncio
+import re
 from asyncio import sleep
-
-from telethon import events
-from telethon.utils import pack_bot_file_id
-from WhiteEyeUserBot.utils import WhiteEye_on_cmd
-from WhiteEyeUserBot import CMD_HELP
-from WhiteEyeUserBot.modules.sql_helper.welcome_sql import (
-    add_welcome_setting,
-    get_current_welcome_settings,
-    rm_welcome_setting,
-    update_previous_welcome,
-)
 from os import remove
-from telethon.tl import functions
-from WhiteEyeUserBot.functions import is_admin
+
+from telethon import events, utils
 from telethon.errors import (
     BadRequestError,
     ChatAdminRequiredError,
@@ -28,15 +19,8 @@ from telethon.errors import (
     PhotoCropSizeSmallError,
     UserAdminInvalidError,
 )
-from telethon.tl.types import (
-    ChannelParticipantAdmin,
-    ChannelParticipantCreator,
-    ChannelParticipantsAdmins,
-)
-from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantsBots
-from telethon.tl.types import ChannelParticipantsAdmins
-from WhiteEyeUserBot.modules.sql_helper import warns_sql as sql
 from telethon.errors.rpcerrorlist import MessageTooLongError, UserIdInvalidError
+from telethon.tl import functions, types
 from telethon.tl.functions.channels import (
     EditAdminRequest,
     EditBannedRequest,
@@ -44,31 +28,37 @@ from telethon.tl.functions.channels import (
 )
 from telethon.tl.functions.messages import UpdatePinnedMessageRequest
 from telethon.tl.types import (
+    ChannelParticipantAdmin,
     ChannelParticipantsAdmins,
+    ChannelParticipantsBots,
     ChatAdminRights,
     ChatBannedRights,
     MessageEntityMentionName,
     MessageMediaPhoto,
 )
+from telethon.utils import pack_bot_file_id
 
 from WhiteEyeUserBot import BOTLOG, BOTLOG_CHATID, CMD_HELP
-import asyncio
-import re
-from WhiteEyeUserBot import CMD_HELP
+from WhiteEyeUserBot.modules.sql_helper import warns_sql as sql
 from WhiteEyeUserBot.modules.sql_helper.filter_sql import (
     add_filter,
     get_all_filters,
     remove_all_filters,
     remove_filter,
 )
-from telethon import events, utils
-from telethon.tl import types
 from WhiteEyeUserBot.modules.sql_helper.snips_sql import (
     add_snip,
     get_all_snips,
     get_snips,
     remove_snip,
 )
+from WhiteEyeUserBot.modules.sql_helper.welcome_sql import (
+    add_welcome_setting,
+    get_current_welcome_settings,
+    rm_welcome_setting,
+    update_previous_welcome,
+)
+from WhiteEyeUserBot.utils import WhiteEye_on_cmd
 
 DELETE_TIMEOUT = 0
 TYPE_TEXT = 0
@@ -125,7 +115,6 @@ UNMUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=False)
 # ================================================
 
 
-
 # ------------------------------------------------------------------------------------
 async def get_user_from_event(event):
     args = event.pattern_match.group(1).split(" ", 1)
@@ -167,6 +156,8 @@ async def get_user_sender_id(user, event):
         return None
 
     return user_obj
+
+
 # --------------------------------------------------------------------------------------------
 
 
@@ -178,7 +169,7 @@ async def set_group_photo(event):
         return
     """ For .setevent command, changes the picture of a group """
     if not event.is_group:
-        poppo = await edit_or_reply(event, "`I don't think this is a group.`")
+        await edit_or_reply(event, "`I don't think this is a group.`")
         return
     replyevent = await event.get_reply_message()
     chat = await event.get_chat()
@@ -186,7 +177,7 @@ async def set_group_photo(event):
     creator = chat.creator
     photo = None
     if not admin and not creator:
-        poppo = await edit_or_reply(event, NO_ADMIN)
+        await edit_or_reply(event, NO_ADMIN)
         return
     if replyevent and replyevent.media:
         if isinstance(replyevent.media, MessageMediaPhoto):
@@ -194,19 +185,19 @@ async def set_group_photo(event):
         elif "image" in replyevent.media.document.mime_type.split("/"):
             photo = await event.client.download_file(replyevent.media.document)
         else:
-            poppo = await edit_or_reply(event, INVALID_MEDIA)
+            await edit_or_reply(event, INVALID_MEDIA)
 
     if photo:
         try:
             await event.client(
                 EditPhotoRequest(event.chat_id, await event.client.upload_file(photo))
             )
-            poppo = await edit_or_reply(event, CHAT_PP_CHANGED)
+            await edit_or_reply(event, CHAT_PP_CHANGED)
 
         except PhotoCropSizeSmallError:
-            poppo = await edit_or_reply(event, PP_TOO_SMOL)
+            await edit_or_reply(event, PP_TOO_SMOL)
         except ImageProcessFailedError:
-            poppo = await edit_or_reply(event, PP_ERROR)
+            await edit_or_reply(event, PP_ERROR)
 
 
 # @register(outgoing=True, pattern="^.promote(?: |$)(.*)")
@@ -251,7 +242,9 @@ async def promote(event):
     # Try to promote if current user is admin or creator
     try:
         await event.client(EditAdminRequest(event.chat_id, user.id, new_rights, rank))
-        await poppo.edit(f"Sucessfully, Promoted [{user.first_name}](tg://user?id={user.id}) in {event.chat.title}")
+        await poppo.edit(
+            f"Sucessfully, Promoted [{user.first_name}](tg://user?id={user.id}) in {event.chat.title}"
+        )
 
     # If Telethon spit BadRequestError, assume
     # we don't have Promote permission
@@ -311,9 +304,11 @@ async def demote(event):
     # If we catch BadRequestError from Telethon
     # Assume we don't have permission to demote
     except BadRequestError:
-        popp9 = await edit_or_reply(event, NO_PERM)
+        await edit_or_reply(event, NO_PERM)
         return
-    await poppo.edit(f"Demoted, [{user.first_name}](tg://user?id={user.id}) in {event.chat.title} Sucessfully!")
+    await poppo.edit(
+        f"Demoted, [{user.first_name}](tg://user?id={user.id}) in {event.chat.title} Sucessfully!"
+    )
 
     # Announce to the logging group if we have demoted successfully
     if BOTLOG:
@@ -365,15 +360,21 @@ async def ban(event):
         if reply:
             await reply.delete()
     except BadRequestError:
-        poppio = await edit_or_reply(event, "`I dont have message nuking rights! But still he was banned!`")
+        await edit_or_reply(
+            event, "`I dont have message nuking rights! But still he was banned!`"
+        )
         return
     # Delete message and then tell that the command
     # is done gracefully
     # Shout out the ID, so that fedadmins can fban later
     if reason:
-        await poppo.edit(f"Sucessfully, Banned [{user.first_name}](tg://user?id={user.id}) in {event.chat.title} For Reason: {reason}")
+        await poppo.edit(
+            f"Sucessfully, Banned [{user.first_name}](tg://user?id={user.id}) in {event.chat.title} For Reason: {reason}"
+        )
     else:
-        await poppo.edit(f"Sucessfully, Banned [{user.first_name}](tg://user?id={user.id}) in {event.chat.title}")
+        await poppo.edit(
+            f"Sucessfully, Banned [{user.first_name}](tg://user?id={user.id}) in {event.chat.title}"
+        )
     # Announce to the logging group if we have banned the person
     # successfully!
     if BOTLOG:
@@ -417,7 +418,9 @@ async def nothanos(event):
 
     try:
         await event.client(EditBannedRequest(event.chat_id, user.id, UNBAN_RIGHTS))
-        await poppo.edit(f"Sucessfully, UnBanned, [{user.first_name}](tg://user?id={user.id}) in {event.chat.title}")
+        await poppo.edit(
+            f"Sucessfully, UnBanned, [{user.first_name}](tg://user?id={user.id}) in {event.chat.title}"
+        )
 
         if BOTLOG:
             await event.client.send_message(
@@ -466,7 +469,9 @@ async def spider(event):
     self_user = await event.client.get_me()
 
     if user.id == self_user.id:
-        poppo = await edit_or_reply(event, "`Hands too short, can't duct tape myself...\n(ヘ･_･)ヘ┳━┳`")
+        poppo = await edit_or_reply(
+            event, "`Hands too short, can't duct tape myself...\n(ヘ･_･)ヘ┳━┳`"
+        )
         return
 
     # If everything goes well, do announcing and mute
@@ -613,7 +618,9 @@ async def pin(event):
         poppo = await edit_or_reply(event, NO_PERM)
         return
     h = str(event.chat_id).replace("-100", "")
-    poppo = await edit_or_reply(event, f"I Have Pinned This [Message](http://t.me/c/{h}/{to_pin})")
+    poppo = await edit_or_reply(
+        event, f"I Have Pinned This [Message](http://t.me/c/{h}/{to_pin})"
+    )
     user = await get_user_sender_id(event.sender_id, event)
 
     if BOTLOG:
@@ -665,7 +672,9 @@ async def kick(event):
             f"I Have Kicked [{user.first_name}](tg://user?id={user.id}) from {event.chat.title} For Reason : {reason}"
         )
     else:
-        await poppo.edit(f"Kicked [{user.first_name}](tg://user?id={user.id}) from {event.chat.title}")
+        await poppo.edit(
+            f"Kicked [{user.first_name}](tg://user?id={user.id}) from {event.chat.title}"
+        )
 
     if BOTLOG:
         await event.client.send_message(
@@ -683,7 +692,7 @@ async def get_users(event):
     if event.fwd_from:
         return
     if not event.is_group:
-        poppo = await edit_or_reply(event, "`I don't think this is a group.`")
+        await edit_or_reply(event, "`I don't think this is a group.`")
         return
     """ For .users command, list all of the users in a chat. """
     info = await event.client.get_entity(event.chat_id)
@@ -712,9 +721,11 @@ async def get_users(event):
     except ChatAdminRequiredError as err:
         mentions += " " + str(err) + "\n"
     try:
-        poppo = await edit_or_reply(event, mentions)
+        await edit_or_reply(event, mentions)
     except MessageTooLongError:
-        poppo = await edit_or_reply(event, "Damn, this is a huge group. Uploading users lists as file.")
+        await edit_or_reply(
+            event, "Damn, this is a huge group. Uploading users lists as file."
+        )
         file = open("userslist.txt", "w+")
         file.write(mentions)
         file.close()
@@ -725,6 +736,7 @@ async def get_users(event):
             reply_to=event.id,
         )
         remove("userslist.txt")
+
 
 @WhiteEye.on(WhiteEye_on_cmd(pattern="zombies(?: |$)(.*)"))
 @WhiteEye.on(sudo_cmd(pattern="zombies(?: |$)(.*)", allow_sudo=True))
@@ -738,7 +750,9 @@ async def rm_deletedacc(event):
     del_u = 0
     del_status = "`No deleted accounts found, Group is clean`"
     if con != "clean":
-        poppo = await edit_or_reply(event, "`Searching for ghost/deleted/zombie accounts...`")
+        poppo = await edit_or_reply(
+            event, "`Searching for ghost/deleted/zombie accounts...`"
+        )
         async for user in event.client.iter_participants(event.chat_id):
 
             if user.deleted:
@@ -756,7 +770,9 @@ async def rm_deletedacc(event):
     if not admin and not creator:
         poppo = await edit_or_reply(event, "`I am not an admin here!`")
         return
-    poppo = await edit_or_reply(event, "`Deleting deleted accounts...\nOh I can do that?!?!`")
+    poppo = await edit_or_reply(
+        event, "`Deleting deleted accounts...\nOh I can do that?!?!`"
+    )
     del_u = 0
     del_a = 0
     async for user in event.client.iter_participants(event.chat_id):
@@ -791,7 +807,7 @@ async def on_snip(event):
     if event.chat_id in last_triggered_filters:
         if name in last_triggered_filters[event.chat_id]:
             return False
-        
+
     snips = get_all_filters(event.chat_id)
     if snips:
         for snip in snips:
@@ -908,7 +924,8 @@ async def on_all_snip_delete(event):
     edit_or_reply(event, "Processing....")
     remove_all_filters(event.chat_id)
     await event.edit(f"filters **in current chat** deleted successfully")
-    
+
+
 @WhiteEye.on(events.NewMessage(pattern=r"\#(\S+)", outgoing=True))
 async def on_snip(event):
     name = event.pattern_match.group(1)
@@ -1007,6 +1024,7 @@ async def on_snip_delete(event):
     remove_snip(name)
     await event.edit("snip #{} deleted successfully".format(name))
 
+
 @WhiteEye.on(WhiteEye_on_cmd(pattern="create (b|g|c)(?: |$)(.*)"))
 async def telegraphs(grop):
     if grop.fwd_from:
@@ -1088,6 +1106,8 @@ async def telegraphs(grop):
             except Exception as e:  # pylint:disable=C0103,W0703
 
                 await grop.edit(str(e))
+
+
 @WhiteEye.on(WhiteEye_on_cmd(pattern="warn(?: |$)(.*)"))
 async def _s(event):
     if event.fwd_from:
@@ -1279,6 +1299,7 @@ async def get_user_sender_id(user, event):
 
     return user_obj
 
+
 @WhiteEye.on(WhiteEye_on_cmd(pattern="admins"))
 async def _(event):
     if event.fwd_from:
@@ -1294,7 +1315,8 @@ async def _(event):
     else:
         await event.reply(mentions)
     await event.delete()
-    
+
+
 @WhiteEye.on(WhiteEye_on_cmd("mention (.*)"))
 async def _(event):
     if event.fwd_from:
@@ -1311,7 +1333,8 @@ async def _(event):
     user_id = replied_user
     caption = """<a href='tg://user?id={}'>{}</a>""".format(user_id, input_str)
     await event.edit(caption, parse_mode="HTML")
-    
+
+
 @WhiteEye.on(WhiteEye_on_cmd("get_bot ?(.*)"))
 async def _(event):
     if event.fwd_from:
@@ -1342,7 +1365,8 @@ async def _(event):
     except Exception as e:
         mentions += " " + str(e) + "\n"
     await event.edit(mentions)
-    
+
+
 @bot.on(events.ChatAction())  # pylint:disable=E0602
 async def _(event):
     cws = get_current_welcome_settings(event.chat_id)
@@ -1436,7 +1460,8 @@ async def _(event):
         )
     else:
         await event.edit("No Welcome Message found")
-        
+
+
 CMD_HELP.update(
     {
         "welcome": "**Welcome**\
