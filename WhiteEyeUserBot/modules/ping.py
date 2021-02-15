@@ -39,13 +39,18 @@ async def _(event):
     starkislub = await edit_or_reply(event, "`Pong !`")
     if event.fwd_from:
         return
+    hmm = await bot.get_me()
+    rip = (f"[{hmm.first_name}](tg://user?id={hmm.id})")
+    if not hmm.username:
+        hmm.username = hmm.id
+    bothmm = await tgbot.get_me()
+    botrip = (f"[{bothmm.first_name}](tg://user?id={bothmm.id})")
     start = datetime.now()
     end = datetime.now()
     ms = (end - start).microseconds / 1000
     uptime = get_readable_time((time.time() - Lastupdate))
     await starkislub.edit(
-        f"""**█▓█▓▒▒░░░PONG░░░▒▒▓█▓█
-**\n ➲ `{ms}` \n ➲ `{uptime}`"""
+        f"**█▀█ █▀█ █▄░█ █▀▀ █ \n█▀▀ █▄█ █░▀█ █▄█ ▄**\n➲ `{ms}` \n➲ `{uptime}` \n➲ {rip} \n➲ {botrip}"
     )
 
 
