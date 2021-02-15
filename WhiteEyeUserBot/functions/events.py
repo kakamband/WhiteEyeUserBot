@@ -15,7 +15,9 @@ from traceback import format_exc
 
 from telethon import events
 
-from WhiteEyeUserBot import LOGSPAMMER, PRIVATE_GROUP_ID, bot, client2 as starkclient, client3 as warnerclient
+from WhiteEyeUserBot import LOGSPAMMER, PRIVATE_GROUP_ID, bot
+from WhiteEyeUserBot import client2 as starkclient
+from WhiteEyeUserBot import client3 as warnerclient
 
 
 def register(**args):
@@ -136,6 +138,7 @@ def register(**args):
                     remove("error.log")
             else:
                 pass
+
         if not disable_edited:
             bot.add_event_handler(wrapper, events.MessageEdited(**args))
         bot.add_event_handler(wrapper, events.NewMessage(**args))
