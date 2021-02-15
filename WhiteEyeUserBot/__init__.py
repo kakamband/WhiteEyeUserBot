@@ -218,17 +218,6 @@ else:
         sedprint.info("I Wasn't Able To Download Cafee Model. Skipping.")
 
 
-# Nospam+ Client
-if Config.NOSPAMPLUS_TOKEN == None:
-    sclient = None
-    sedprint.info("[Warning] - NoSpamPlusToken is None")
-else:
-    try:
-        sclient = Connect(Config.NOSPAMPLUS_TOKEN)
-    except Exception as e:
-        sclient = None
-        sedprint.info("[Warning] - " + str(e))
-
 # Avoid Doing This Again And Again In Plugins.
 try:
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
