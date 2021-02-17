@@ -16,15 +16,14 @@
 # you may not use this file except in compliance with the License.
 
 import os
-from distutils.util import strtobool as sb
 
-import pylast
 from telethon.tl.types import ChatBannedRights
 
 ENV = bool(os.environ.get("ENV", False))
 if not ENV:
     from local_config import Development as Config
 elif ENV:
+
     class Config(object):
         LOGGER = True
         # Get this value from my.telegram.org! Please do not steal
@@ -191,10 +190,10 @@ elif ENV:
         TESSDATA_PREFIX = os.environ.get(
             "TESSDATA_PREFIX", "/usr/share/tesseract-ocr/4.00/tessdata"
         )
-        
-        
+
+
 else:
 
     class Config(object):
         DB_URI = None
-        # Add your UniBorg Vars Here        
+        # Add your UniBorg Vars Here
