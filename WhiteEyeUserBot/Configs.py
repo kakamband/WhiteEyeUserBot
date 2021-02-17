@@ -181,7 +181,7 @@ elif ENV:
         LOAD_OTHER_PLUGINS_CHNNL = os.environ.get(
             "LOAD_OTHER_PLUGINS_CHNNL", "@WhiteEyePlugins"
         )
-       
+
         # DO NOT EDIT BELOW THIS LINE IF YOU DO NOT KNOW WHAT YOU ARE DOING
         # TG API limit. A message can have maximum 4096 characters!
         MAX_MESSAGE_SIZE_LIMIT = 4095
