@@ -28,57 +28,6 @@ elif ENV:
         LOGGER = True
         # Get this value from my.telegram.org! Please do not steal
         APP_ID = int(os.environ.get("APP_ID", 6))
-        LANG = os.environ.get("LANG", "en")
-        OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
-        REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
-        CHROME_DRIVER = os.environ.get("CHROME_DRIVER", "/usr/bin/chromedriver")
-        GOOGLE_CHROME_BIN = os.environ.get(
-            "GOOGLE_CHROME_BIN", "/usr/bin/google-chrome"
-        )
-        HEROKU_MEMEZ = sb(os.environ.get("HEROKU_MEMEZ", "False"))
-        HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
-        HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
-        PMPERMIT_PIC = os.environ.get("PMPERMIT_PIC", None)
-        HELP_EMOJI = os.environ.get("HELP_EMOJI", None)
-        AUTONAME = os.environ.get("AUTONAME", None)
-        CUSTOM_PMPERMIT = os.environ.get("CUSTOM_PMPERMIT", None)
-        OPEN_WEATHER_MAP_APPID = os.environ.get("OPEN_WEATHER_MAP_APPID", None)
-        ANTI_SPAMBOT = sb(os.environ.get("ANTI_SPAMBOT", "False"))
-        PRIVATE_GROUP_BOT_API_ID = os.environ.get("PRIVATE_GROUP_BOT_API_ID", None)
-        ANTI_SPAMBOT_SHOUT = sb(os.environ.get("ANTI_SPAMBOT_SHOUT", "False"))
-        YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
-        ALIVE_NAME = os.environ.get("ALIVE_NAME", None)
-        LESS_SPAMMY = os.environ.get("LESS_SPAMMY", True)
-        COUNTRY = str(os.environ.get("COUNTRY", ""))
-        TZ_NUMBER = int(os.environ.get("TZ_NUMBER", 1))
-        CLEAN_WELCOME = sb(os.environ.get("CLEAN_WELCOME", "True"))
-        SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
-        ANTISPAM_SYSTEM = os.environ.get("ANTISPAM_SYSTEM", "DISABLE")
-        WHITE_CHAT = PRIVATE_GROUP_ID = int(os.environ.get("WHITE_CHAT", False))
-        BIO_PREFIX = os.environ.get("BIO_PREFIX", None)
-        DEFAULT_BIO = os.environ.get("DEFAULT_BIO", None)
-        LASTFM_API = os.environ.get("LASTFM_API", None)
-        LASTFM_SECRET = os.environ.get("LASTFM_SECRET", None)
-        LASTFM_USERNAME = os.environ.get("LASTFM_USERNAME", None)
-        LASTFM_PASSWORD_PLAIN = os.environ.get("LASTFM_PASSWORD", None)
-        LASTFM_PASS = pylast.md5(LASTFM_PASSWORD_PLAIN)
-        if not LASTFM_USERNAME == "None":
-            lastfm = pylast.LastFMNetwork(
-                api_key=LASTFM_API,
-                api_secret=LASTFM_SECRET,
-                username=LASTFM_USERNAME,
-                password_hash=LASTFM_PASS,
-            )
-        else:
-            lastfm = None
-        G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID", None)
-        G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET", None)
-        G_DRIVE_AUTH_TOKEN_DATA = os.environ.get("G_DRIVE_AUTH_TOKEN_DATA", None)
-        GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", None)
-        TEMP_DOWNLOAD_DIRECTORY = os.environ.get(
-            "TEMP_DOWNLOAD_DIRECTORY", "./downloads"
-        )
-        BOTLOG = sb(os.environ.get("BOTLOG", "False"))
         TZ = os.environ.get("TZ", "Asia/Kolkata")
         API_HASH = os.environ.get("API_HASH", "eb06d4abfb49dc3eeb1aeb98ae0f581e")
         CLEAN_GROUPS = os.environ.get("CLEAN_GROUPS", False)
@@ -103,6 +52,8 @@ elif ENV:
         PRIVATE_GROUP_BOT_API_ID = int(os.environ.get("PRIVATE_GROUP_BOT_API_ID", -100))
         NO_SONGS = bool(os.environ.get("NO_SONGS", False))
         PING_SERVERS = bool(os.environ.get("PING_SERVERS", False))
+        TG_BOT_USER_NAME_BF_HER = os.environ.get("TG_BOT_USER_NAME_BF_HER", None)
+        NO_SONGS = bool(os.environ.get("NO_SONGS", False))
         DOWNLOAD_PFP_URL_CLOCK = os.environ.get("DOWNLOAD_PFP_URL_CLOCK", None)
         G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID", None)
         G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET", None)
@@ -158,7 +109,6 @@ elif ENV:
             os.environ.get("PING_SERVER_EVERY_MINUTE_VALUE", 30)
         )
         DEEZER_ARL_TOKEN = os.environ.get("DEEZER_ARL_TOKEN", None)
-        NOSPAMPLUS_TOKEN = os.environ.get("NOSPAMPLUS_TOKEN", None)
         # Send .get_id in any group with all your administration bots (added)
         G_BAN_LOGGER_GROUP = int(os.environ.get("G_BAN_LOGGER_GROUP", -1001198699233))
         # Tag Logger
@@ -296,9 +246,3 @@ elif ENV:
             "TESSDATA_PREFIX", "/usr/share/tesseract-ocr/4.00/tessdata"
         )
 
-
-else:
-
-    class Config(object):
-        DB_URI = None
-        # Add your UniBorg Vars Here
