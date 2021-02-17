@@ -29,9 +29,6 @@ elif ENV:
         # Get this value from my.telegram.org! Please do not steal
         APP_ID = int(os.environ.get("APP_ID", 6))
         LANG = os.environ.get("LANG", "en")
-        PM_AUTO_BAN = sb(os.environ.get("PM_AUTO_BAN", "False"))
-        CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
-        DB_URI = os.environ.get("DATABASE_URL", None)
         OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
         REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
         CHROME_DRIVER = os.environ.get("CHROME_DRIVER", "/usr/bin/chromedriver")
