@@ -16,41 +16,47 @@
 # you may not use this file except in compliance with the License.
 
 import logging
+import os
+import platform
 from pathlib import Path
 from sys import argv
-import os
+
 import telethon.utils
 from telethon import TelegramClient
 from telethon import __version__ as tv
-import sys
-import platform
-from WhiteEyeUserBot import bot, client2, client3, WhiteEye_version
-from WhiteEyeUserBot.Configs import Config
 from telethon.tl.types import InputMessagesFilterDocument
-from WhiteEyeUserBot.utils import load_module, start_assistant, load_module_dclient
+
+from WhiteEyeUserBot import WhiteEye_version, bot, client2, client3
 from WhiteEyeUserBot.Configs import Config
+from WhiteEyeUserBot.utils import load_module, load_module_dclient, start_assistant
 
 whiteeyedevs = logging.getLogger("WhiteEye")
+
 
 async def add_bot(bot_token):
     await bot.start(bot_token)
     bot.me = await bot.get_me()
     bot.uid = telethon.utils.get_peer_id(bot.me)
-   
-        
-# Bleck Megic         
+
+
+# Bleck Megic
 async def check_inline_on_warner(ws):
     w_s = await ws.get_me()
     if not w_s.bot_inline_placeholder:
-        whiteeyedevs.info("Warning : WhiteEye Have Detected That You Have Not Turned On Inline Mode For Your Assistant Bot, Please Go To @BotFather And Enable This.")
+        whiteeyedevs.info(
+            "Warning : WhiteEye Have Detected That You Have Not Turned On Inline Mode For Your Assistant Bot, Please Go To @BotFather And Enable This."
+        )
     return
 
+
 Lol = "folyl's Token"
+
 
 async def lol_s(client):
     client.me = await client.get_me()
     client.uid = telethon.utils.get_peer_id(client.me)
-    
+
+
 def multiple_client():
     if client2:
         whiteeyedevs.info("Starting Client 2")
@@ -74,7 +80,8 @@ def multiple_client():
         dayamzaidi = True
     if not client3:
         tausiff = True
-    return dayamzaidi, tausiff    
+    return dayamzaidi, tausiff
+
 
 async def get_other_plugins(Config, client_s, whiteeyedevs):
     try:
@@ -96,6 +103,7 @@ async def get_other_plugins(Config, client_s, whiteeyedevs):
             await client_s.download_media(js.media, "WhiteEyeUserBot/modules/")
     whiteeyedevs.info("Extra Plugins Downloaded.")
 
+
 if len(argv) not in (1, 3, 4):
     bot.disconnect()
 else:
@@ -111,8 +119,8 @@ else:
         failed2, failed3 = multiple_client()
 
 if Config.LOAD_OTHER_PLUGINS:
-        bot.loop.run_until_complete(get_other_plugins(Config, bot, whiteeyedevs))
-        
+    bot.loop.run_until_complete(get_other_plugins(Config, bot, whiteeyedevs))
+
 import glob
 
 path = "WhiteEyeUserBot/modules/*.py"
@@ -123,12 +131,16 @@ for name in files:
         path1 = Path(f.name)
         shortname = path1.stem
         try:
-            load_module(shortname.replace(".py", ""))    
+            load_module(shortname.replace(".py", ""))
         except Exception as e:
             failed_warner += 1
             whiteeyedevs.info("------------------------")
-            whiteeyedevs.info("Failed To Load : " + str(shortname.replace(".py", "")) + f" Error : {str(e)}")
-            whiteeyedevs.info("------------------------")   
+            whiteeyedevs.info(
+                "Failed To Load : "
+                + str(shortname.replace(".py", ""))
+                + f" Error : {str(e)}"
+            )
+            whiteeyedevs.info("------------------------")
         if failed2 is None:
             try:
                 load_module_dclient(shortname.replace(".py", ""), client2)
@@ -157,7 +169,7 @@ if failed2 is None:
     total_clients += 1
 if failed3 is None:
     total_clients += 1
-    
+
 WhiteEyedevs.info(
     f"""{wsta}
     
@@ -168,8 +180,9 @@ WhiteEye-Userbot Version : V{WhiteEye_version}
 Updates Channel : @WhiteEyeDevs
 Total Clients : {total_clients}
 WhiteEye Installed 
--------------------------------------------""")
-        
+-------------------------------------------"""
+)
+
 bot.tgbot.loop.run_until_complete(check_inline_on_warner(bot.tgbot))
 
 if len(argv) not in (1, 3, 4):
