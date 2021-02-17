@@ -18,7 +18,7 @@ import sys
 import time
 from distutils.util import strtobool as sb
 from logging import DEBUG, INFO, basicConfig, getLogger
-from WhiteEyeUserBot.clients import bot, client2, client3
+
 import pylast
 import wget
 from dotenv import load_dotenv
@@ -29,6 +29,7 @@ from telegraph import Telegraph, exceptions, upload_file
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 
+from WhiteEyeUserBot.clients import bot, client2, client3
 from WhiteEyeUserBot.Configs import Config
 
 from .Configs import Config
@@ -36,7 +37,6 @@ from .Configs import Config
 Lastupdate = time.time()
 sedprint = logging.getLogger("WARNING")
 from WhiteEyeUserBot.Configs import Config
-
 
 CMD_LIST = {}
 CMD_HELP = {}
@@ -196,10 +196,9 @@ else:
         sedlyf = wget.download(link, out=pathz)
     except:
         sedprint.info("I Wasn't Able To Download Cafee Model. Skipping.")
-        
-        
 
-# Avoid Doing This Again And Again In Plugins.        
+
+# Avoid Doing This Again And Again In Plugins.
 try:
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
