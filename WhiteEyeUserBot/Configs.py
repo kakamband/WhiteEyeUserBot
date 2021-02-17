@@ -27,7 +27,7 @@ elif ENV:
     class Config(object):
         LOGGER = True
         # Get this value from my.telegram.org! Please do not steal
-                APP_ID = int(os.environ.get("APP_ID", 6))
+        APP_ID = int(os.environ.get("APP_ID", 6))
         LANG = os.environ.get("LANG", "en")
         PM_AUTO_BAN = sb(os.environ.get("PM_AUTO_BAN", "False"))
         CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
