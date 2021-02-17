@@ -16,7 +16,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from uniborg.util import WhiteEye_on_cmd, edit_or_reply, sudo_cmd
 
 from WhiteEyeUserBot import CMD_HELP
-from WhiteEyeUserBot.functions.matic_tools import auto_bio, auto_name, auto_pic
+from WhiteEyeUserBot.functions.matic_tool import auto_bio, auto_name, auto_pic
 
 scheduler = AsyncIOScheduler(executors={"default": AsyncIOExecutor()})
 
