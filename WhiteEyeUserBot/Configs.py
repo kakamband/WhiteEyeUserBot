@@ -245,4 +245,3 @@ elif ENV:
         TESSDATA_PREFIX = os.environ.get(
             "TESSDATA_PREFIX", "/usr/share/tesseract-ocr/4.00/tessdata"
         )
-
