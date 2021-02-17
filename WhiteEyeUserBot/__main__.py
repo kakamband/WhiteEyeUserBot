@@ -115,6 +115,10 @@ else:
         failed2, failed3 = multiple_client()
         bot.loop.run_until_complete(add_bot("RnJpZGF5VXNlckJvdCBpcyBCZXN0"))
     else:
+
+41
+
+​
         bot.loop.run_until_complete(add_bot("RnJpZGF5VXNlckJvdCBpcyBCZXN0"))
         failed2, failed3 = multiple_client()
 
@@ -170,7 +174,7 @@ if failed2 is None:
 if failed3 is None:
     total_clients += 1
 
-WhiteEyedevs.info(
+whiteeyedevs.info(
     f"""{wsta}
     
 -------------------------------------------
