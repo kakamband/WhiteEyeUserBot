@@ -161,6 +161,7 @@ def load_module(shortname):
         mod.WhiteEye = bot
         # support for paperplaneextended
         sys.modules["WhiteEyeUserBot.events"] = WhiteEyeUserBot.utils
+        sys.modules["WhiteEyeUserBot.functions.events"] = WhiteEyeUserBot.utils
         spec.loader.exec_module(mod)
         # for imports
         sys.modules["WhiteEyeUserBot.modules." + shortname] = mod
@@ -556,7 +557,7 @@ def load_module_dclient(shortname, client):
         mod.borg = client
         mod.WhiteEye = client
         mod.CMD_HELP = CMD_HELP
-        # support for paperplaneextended
+        sys.modules["WhiteEyeUserBot.functions.events"] = WhiteEyeUserBot.utils
         sys.modules["WhiteEyeUserBot.events"] = WhiteEyeUserBot.utils
         spec.loader.exec_module(mod)
         sys.modules["WhiteEyeUserBot.modules." + shortname] = mod
