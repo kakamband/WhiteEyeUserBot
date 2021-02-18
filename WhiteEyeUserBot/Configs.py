@@ -269,15 +269,15 @@ class Config(object):
     ANTISPAM_FEATURE = os.environ.get("ANTISPAM_FEATURE", "ENABLE")
     ASSISTANT_LOG = int(os.environ.get("ASSISTANT_LOG", False))
     UPSTREAM_REPO = os.environ.get(
-            "UPSTREAM_REPO", "https://github.com/WhiteEye-Org/WhiteEyeUserBot"
-        )
-        ALIVE_IMAGE = os.environ.get(
-            "ALIVE_IMAGE", "https://telegra.ph/file/e41d27e913a961d105d4d.jpg"
-        )
-        ASSISTANT_START_PIC = os.environ.get(
-            "ASSISTANT_START_PIC",
-            "https://telegra.ph/file/e41d27e913a961d105d4d.jpg",
-        )
-        TESSDATA_PREFIX = os.environ.get(
-            "TESSDATA_PREFIX", "/usr/share/tesseract-ocr/4.00/tessdata"
-        )
+        "UPSTREAM_REPO", "https://github.com/WhiteEye-Org/WhiteEyeUserBot"
+    )
+    ALIVE_IMAGE = os.environ.get(
+        "ALIVE_IMAGE", "https://telegra.ph/file/e41d27e913a961d105d4d.jpg"
+    )
+    ASSISTANT_START_PIC = os.environ.get(
+        "ASSISTANT_START_PIC",
+        "https://telegra.ph/file/e41d27e913a961d105d4d.jpg",
+    )
+    TESSDATA_PREFIX = os.environ.get(
+        "TESSDATA_PREFIX", "/usr/share/tesseract-ocr/4.00/tessdata"
+    )
