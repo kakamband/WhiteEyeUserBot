@@ -3,6 +3,7 @@
 from WhiteEyeUserBot import CMD_HELP
 from WhiteEyeUserBot.utils import WhiteEye_on_cmd
 
+
 @WhiteEye.on(WhiteEye_on_cmd(pattern=r"getall$", outgoing=True))
 async def _(event):
     if event.fwd_from:
