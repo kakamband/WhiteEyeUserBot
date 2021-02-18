@@ -16,21 +16,16 @@
 # you may not use this file except in compliance with the License.
 
 import os
-import asyncio
-import logging
-import os
-import sys
-import time
 from distutils.util import strtobool as sb
-from telethon.tl.types import ChatBannedRights
-import pylast
-import wget
-from dotenv import load_dotenv
-from pylast import LastFMNetwork, md5
 
-if os.path.exists('local.env'):
-    load_dotenv('local.env')
-    
+import pylast
+from dotenv import load_dotenv
+from telethon.tl.types import ChatBannedRights
+
+if os.path.exists("local.env"):
+    load_dotenv("local.env")
+
+
 class Config(object):
     LOGGER = True
     APP_ID = int(os.environ.get("APP_ID", 6))
@@ -70,14 +65,14 @@ class Config(object):
     LASTFM_PASSWORD_PLAIN = os.environ.get("LASTFM_PASSWORD", None)
     LASTFM_PASS = pylast.md5(LASTFM_PASSWORD_PLAIN)
     if not LASTFM_USERNAME == "None":
-       lastfm = pylast.LastFMNetwork(
-           api_key=LASTFM_API,
-           api_secret=LASTFM_SECRET,
-           username=LASTFM_USERNAME,
-           password_hash=LASTFM_PASS,
-       )
+        lastfm = pylast.LastFMNetwork(
+            api_key=LASTFM_API,
+            api_secret=LASTFM_SECRET,
+            username=LASTFM_USERNAME,
+            password_hash=LASTFM_PASS,
+        )
     else:
-       lastfm = None
+        lastfm = None
     G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID", None)
     G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET", None)
     G_DRIVE_AUTH_TOKEN_DATA = os.environ.get("G_DRIVE_AUTH_TOKEN_DATA", None)
@@ -89,7 +84,9 @@ class Config(object):
     CLEAN_GROUPS = os.environ.get("CLEAN_GROUPS", False)
     STRING_SESSION = os.environ.get("STRING_SESSION", None)
     DB_URI = os.environ.get("DATABASE_URL", None)
-    TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", './WhiteEyeUserBot/DOWNLOADS/')
+    TEMP_DOWNLOAD_DIRECTORY = os.environ.get(
+        "TEMP_DOWNLOAD_DIRECTORY", "./WhiteEyeUserBot/DOWNLOADS/"
+    )
     LOGGER = True
     GITHUB_ACCESS_TOKEN = os.environ.get("GITHUB_ACCESS_TOKEN", None)
     GIT_REPO_NAME = os.environ.get("GIT_REPO_NAME", None)
@@ -137,14 +134,10 @@ class Config(object):
     SUB_TO_MSG_ASSISTANT = os.environ.get("SUB_TO_MSG_ASSISTANT", False)
     AUTO_SPELL_FIX = os.environ.get("AUTO_SPELL_FIX", False)
     # Get your own ACCESS_KEY from http://api.screenshotlayer.com/api/capture
-    SCREEN_SHOT_LAYER_ACCESS_KEY = os.environ.get(
-        "SCREEN_SHOT_LAYER_ACCESS_KEY", None
-    )
+    SCREEN_SHOT_LAYER_ACCESS_KEY = os.environ.get("SCREEN_SHOT_LAYER_ACCESS_KEY", None)
     # Send .get_id in any group to fill this value.
     # This is required for the modules involving the file system.
-    TMP_DOWNLOAD_DIRECTORY = os.environ.get(
-        "TMP_DOWNLOAD_DIRECTORY", "./DOWNLOADS/"
-    )
+    TMP_DOWNLOAD_DIRECTORY = os.environ.get("TMP_DOWNLOAD_DIRECTORY", "./DOWNLOADS/")
     # This is required for the speech to text module. Get your USERNAME from https://console.bluemix.net/docs/services/speech-to-text/getting-started.html
     IBM_WATSON_CRED_URL = os.environ.get("IBM_WATSON_CRED_URL", None)
     IBM_WATSON_CRED_PASSWORD = os.environ.get("IBM_WATSON_CRED_PASSWORD", None)
@@ -153,7 +146,9 @@ class Config(object):
     # Get a Free API Key from OCR.Space
     OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
     DEEP_API_KEY = os.environ.get("DEEP_API_KEY", None)
-    PING_SERVER_EVERY_MINUTE_VALUE = int(os.environ.get("PING_SERVER_EVERY_MINUTE_VALUE", 30))
+    PING_SERVER_EVERY_MINUTE_VALUE = int(
+        os.environ.get("PING_SERVER_EVERY_MINUTE_VALUE", 30)
+    )
     DEEZER_ARL_TOKEN = os.environ.get("DEEZER_ARL_TOKEN", None)
     NOSPAMPLUS_TOKEN = os.environ.get("NOSPAMPLUS_TOKEN", None)
     # Send .get_id in any group with all your administration bots (added)
@@ -161,13 +156,13 @@ class Config(object):
     # TG API limit. An album can have atmost 10 media!
     GOOGLE_SEARCH_COUNT_LIMIT = int(os.environ.get("GOOGLE_SEARCH_COUNT_LIMIT", 9))
     TG_GLOBAL_ALBUM_LIMIT = int(os.environ.get("TG_GLOBAL_ALBUM_LIMIT", 9))
-    PRIVATE_GROUP_BOT_API_ID = int(
-        os.environ.get("PRIVATE_GROUP_BOT_API_ID", False)
-    )
+    PRIVATE_GROUP_BOT_API_ID = int(os.environ.get("PRIVATE_GROUP_BOT_API_ID", False))
     DISABLE_MARKDOWN = os.environ.get("DISABLE_MARKDOWN", False)
     # Load Spammy Plugins, Which can be harmful.
     LOAD_OTHER_PLUGINS = os.environ.get("LOAD_OTHER_PLUGINS", False)
-    LOAD_OTHER_PLUGINS_CHNNL = os.environ.get("LOAD_OTHER_PLUGINS_CHNNL", "@WhiteEyePlugins")
+    LOAD_OTHER_PLUGINS_CHNNL = os.environ.get(
+        "LOAD_OTHER_PLUGINS_CHNNL", "@WhiteEyePlugins"
+    )
     #
     # DO NOT EDIT BELOW THIS LINE IF YOU DO NOT KNOW WHAT YOU ARE DOING
     # TG API limit. A message can have maximum 4096 characters!
@@ -219,12 +214,8 @@ class Config(object):
     # WARNING: be careful who you grant access to your bot.
     # malicious users could do ".exec rm -rf /*"
     SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
-    WHITELIST_USERS = set(
-        int(x) for x in os.environ.get("WHITELIST_USERS", "").split()
-    )
-    BLACKLIST_USERS = set(
-        int(x) for x in os.environ.get("BLACKLIST_USERS", "").split()
-    )
+    WHITELIST_USERS = set(int(x) for x in os.environ.get("WHITELIST_USERS", "").split())
+    BLACKLIST_USERS = set(int(x) for x in os.environ.get("BLACKLIST_USERS", "").split())
     DEVLOPERS = set(int(x) for x in os.environ.get("DEVLOPERS", "").split())
     OWNER_ID = set(int(x) for x in os.environ.get("OWNER_ID", "").split())
     SUPPORT_USERS = set(int(x) for x in os.environ.get("SUPPORT_USERS", "").split())
@@ -238,9 +229,7 @@ class Config(object):
     CHANNEL_ID = int(os.environ.get("CHANNEL_ID", -100))
     # Google Chrome Stuff
     CHROME_DRIVER = os.environ.get("CHROME_DRIVER", "/usr/bin/chromedriver")
-    GOOGLE_CHROME_BIN = os.environ.get(
-        "GOOGLE_CHROME_BIN", "/usr/bin/google-chrome"
-    )
+    GOOGLE_CHROME_BIN = os.environ.get("GOOGLE_CHROME_BIN", "/usr/bin/google-chrome")
     # Google Drive ()
     G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID", None)
     G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET", None)
