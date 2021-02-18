@@ -265,7 +265,7 @@ class Config(object):
     )
     ASSISTANT_START_PIC = os.environ.get(
         "ASSISTANT_START_PIC",
-        "https://telegra.ph/file/e41d27e913a961d105d4d.jpg",
+        "https://i.pinimg.com/236x/f9/93/49/f993498ace7affc1fe50262f69f1cc2e.jpg",
     )
     TESSDATA_PREFIX = os.environ.get(
         "TESSDATA_PREFIX", "/usr/share/tesseract-ocr/4.00/tessdata"
