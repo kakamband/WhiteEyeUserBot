@@ -18,7 +18,7 @@ import sys
 import time
 from distutils.util import strtobool as sb
 from logging import DEBUG, INFO, basicConfig, getLogger
-from WhiteEyeUserBot.clients import bot, client2, client3
+
 import pylast
 import wget
 from dotenv import load_dotenv
@@ -29,18 +29,17 @@ from telegraph import Telegraph, exceptions, upload_file
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 
+from WhiteEyeUserBot.clients import bot, client2, client3
 from WhiteEyeUserBot.Configs import Config
 
-if os.path.exists('local.env'):
-    load_dotenv('local.env')
+if os.path.exists("local.env"):
+    load_dotenv("local.env")
 
 Lastupdate = time.time()
 sedprint = logging.getLogger("WARNING")
 
 
-basicConfig(
-format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=INFO
-)
+basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=INFO)
 LOGS = getLogger(__name__)
 BOTLOG_CHATID = os.environ.get("BOTLOG_CHATID", None)
 BOTLOG = sb(os.environ.get("BOTLOG", "False"))
@@ -79,10 +78,10 @@ LASTFM_PASSWORD_PLAIN = os.environ.get("LASTFM_PASSWORD", None)
 LASTFM_PASS = pylast.md5(LASTFM_PASSWORD_PLAIN)
 if not LASTFM_USERNAME == "None":
     lastfm = pylast.LastFMNetwork(
-    api_key=LASTFM_API,
-    api_secret=LASTFM_SECRET,
-    username=LASTFM_USERNAME,
-    password_hash=LASTFM_PASS,
+        api_key=LASTFM_API,
+        api_secret=LASTFM_SECRET,
+        username=LASTFM_USERNAME,
+        password_hash=LASTFM_PASS,
     )
 else:
     lastfm = None
@@ -113,7 +112,7 @@ else:
     try:
         sedlyf = wget.download(link, out=pathz)
     except:
-        sedprint.info("I Wasn't Able To Download Cafee Model. Skipping.")   
+        sedprint.info("I Wasn't Able To Download Cafee Model. Skipping.")
 try:
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
