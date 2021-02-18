@@ -5,8 +5,8 @@ google-trans-new
 img2pdf
 pymediainfo
 apscheduler
-git+https://github.com/chsaiujwal/maigret
-git+https://github.com/gleitz/howdoi
+git+https://github.com/WhiteEye-Org/maigret
+git+https://github.com/WhiteEye-Org/howdoi
 pyseoanalyzer
 fake_useragent
 rotten_tomatoes_client
