@@ -11,8 +11,8 @@
     "productivity"
   ],
   "repository": "https://github.com/WhiteEye-Org/WhiteEyeUserBot",
-  "website": "starkgang.ml",
-  "success_url": "t.me/WhiteEyeOT",
+  "website": "whiteeyeorg.ml",
+  "success_url": "t.me/WhiteEyeDevs",
   "stack": "container",
   "env": {
     "ENV": {
