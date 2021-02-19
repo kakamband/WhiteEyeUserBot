@@ -6,10 +6,10 @@ from re import findall
 from urllib.parse import quote
 
 import requests
-
-# from pornhub_api import PornhubApi
+from pornhub_api import PornhubApi
 from search_engine_parser import GoogleSearch
 from telethon import Button, custom, events, functions
+from youtube_search import YoutubeSearch
 
 from WhiteEyeUserBot import ALIVE_NAME, CMD_HELP, CMD_LIST
 from WhiteEyeUserBot import bot as client3
@@ -18,9 +18,6 @@ from WhiteEyeUserBot import client3 as client2
 from WhiteEyeUserBot.Configs import Config
 from WhiteEyeUserBot.functions import _deezer_dl, _ytdl, all_pro_s
 from WhiteEyeUserBot.modules import inlinestats
-
-# from youtube_search import YoutubeSearch
-
 
 PMPERMIT_PIC = os.environ.get("PMPERMIT_PIC", None)
 if PMPERMIT_PIC is None:
@@ -329,6 +326,143 @@ def paginate_help(page_number, loaded_modules, prefix):
     return pairs
 
 
+@tgbot.on(events.InlineQuery(pattern=r"torrent (.*)"))
+async def inline_id_handler(event: events.InlineQuery.Event):
+    builder = event.builder
+    o = await all_pro_s(Config, client1, client2, client3)
+    if event.query.user_id not in o:
+        resultm = builder.article(
+            title="Not Allowded",
+            text=f"You Can't Use This Bot. \nDeploy WhiteEyeUserBot To Get Your Own Assistant, Deploy Link [Here](https://whiteeye-org.github.io/WhiteEyeUserBot/)",
+        )
+        await event.answer([resultm])
+        return
+    testinput = event.pattern_match.group(1)
+    starkisnub = urllib.parse.quote_plus(testinput)
+    results = []
+    sedlyf = "https://api.sumanjay.cf/torrent/?query=" + starkisnub
+    try:
+        okpro = requests.get(url=sedlyf, timeout=10).json()
+    except:
+        pass
+    sed = len(okpro)
+    if sed == 0:
+        resultm = builder.article(
+            title="No Results Found.",
+            description="Check Your Spelling / Keyword",
+            text="**Please, Search Again With Correct Keyword, Thank you !**",
+            buttons=[
+                [
+                    Button.switch_inline(
+                        "Search Again", query="torrent ", same_peer=True
+                    )
+                ],
+            ],
+        )
+        await event.answer([resultm])
+        return
+    if sed > 30:
+        for i in range(30):
+            seds = okpro[i]["age"]
+            okpros = okpro[i]["leecher"]
+            sadstark = okpro[i]["magnet"]
+            okiknow = okpro[i]["name"]
+            starksize = okpro[i]["size"]
+            starky = okpro[i]["type"]
+            seeders = okpro[i]["seeder"]
+            okayz = f"**Title :** `{okiknow}` \n**Size :** `{starksize}` \n**Type :** `{starky}` \n**Seeder :** `{seeders}` \n**Leecher :** `{okpros}` \n**Magnet :** `{sadstark}` "
+            sedme = f"Size : {starksize} Type : {starky} Age : {seds}"
+            results.append(
+                await event.builder.article(
+                    title=okiknow,
+                    description=sedme,
+                    text=okayz,
+                    buttons=Button.switch_inline(
+                        "Search Again", query="torrent ", same_peer=True
+                    ),
+                )
+            )
+    else:
+        for sedz in okpro:
+            seds = sedz["age"]
+            okpros = sedz["leecher"]
+            sadstark = sedz["magnet"]
+            okiknow = sedz["name"]
+            starksize = sedz["size"]
+            starky = sedz["type"]
+            seeders = sedz["seeder"]
+            okayz = f"**Title :** `{okiknow}` \n**Size :** `{starksize}` \n**Type :** `{starky}` \n**Seeder :** `{seeders}` \n**Leecher :** `{okpros}` \n**Magnet :** `{sadstark}` "
+            sedme = f"Size : {starksize} Type : {starky} Age : {seds}"
+            results.append(
+                await event.builder.article(
+                    title=okiknow,
+                    description=sedme,
+                    text=okayz,
+                    buttons=[
+                        Button.switch_inline(
+                            "Search Again", query="torrent ", same_peer=True
+                        )
+                    ],
+                )
+            )
+    await event.answer(results)
+
+
+@tgbot.on(events.InlineQuery(pattern=r"yt (.*)"))
+async def inline_id_handler(event: events.InlineQuery.Event):
+    o = await all_pro_s(Config, client1, client2, client3)
+    builder = event.builder
+    if event.query.user_id not in o:
+        resultm = builder.article(
+            title="Not Allowded",
+            text=f"You Can't Use This Bot. \nDeploy WhiteEyeUserBot To Get Your Own Assistant, Deploy Link [Here](https://whiteeye-org.github.io/WhiteEyeUserBot/)",
+        )
+        await event.answer([resultm])
+        return
+    testinput = event.pattern_match.group(1)
+    urllib.parse.quote_plus(testinput)
+    results = []
+    moi = YoutubeSearch(testinput, max_results=9).to_dict()
+    if not moi:
+        resultm = builder.article(
+            title="No Results Found.",
+            description="Check Your Spelling / Keyword",
+            text="**Please, Search Again With Correct Keyword, Thank you !**",
+            buttons=[
+                [Button.switch_inline("Search Again", query="yt ", same_peer=True)],
+            ],
+        )
+        await event.answer([resultm])
+        return
+    for moon in moi:
+        hmm = moon["id"]
+        mo = f"https://www.youtube.com/watch?v={hmm}"
+        kek = f"https://www.youtube.com/watch?v={hmm}"
+        stark_name = moon["title"]
+        stark_chnnl = moon["channel"]
+        total_stark = moon["duration"]
+        stark_views = moon["views"]
+        moon["long_desc"]
+        kekme = f"https://img.youtube.com/vi/{hmm}/hqdefault.jpg"
+        okayz = f"**Title :** `{stark_name}` \n**Link :** `{kek}` \n**Channel :** `{stark_chnnl}` \n**Views :** `{stark_views}` \n**Duration :** `{total_stark}`"
+        hmmkek = f"Video Name : {stark_name} \nChannel : {stark_chnnl} \nDuration : {total_stark} \nViews : {stark_views}"
+        results.append(
+            await event.builder.document(
+                file=kekme,
+                title=stark_name,
+                description=hmmkek,
+                text=okayz,
+                include_media=True,
+                buttons=[
+                    [custom.Button.inline("Download Video - mp4", data=f"yt_vid_{mo}")],
+                    [custom.Button.inline("Download Audio - mp3", data=f"yt_dla_{mo}")],
+                    [Button.switch_inline("Search Again", query="yt ", same_peer=True)],
+                ],
+            )
+        )
+    await event.answer(results)
+
+
 @tgbot.on(events.InlineQuery(pattern=r"jm (.*)"))
 async def inline_id_handler(event: events.InlineQuery.Event):
     o = await all_pro_s(Config, client1, client2, client3)
@@ -549,3 +683,5 @@ async def inline_id_handler(event):
             await event.answer(results)
         except TypeError:
             pass
+
+   
