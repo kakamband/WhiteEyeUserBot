@@ -15,7 +15,6 @@ pokedex.py
 faker
 tracemoepy
 deep_translator
-pornhub-api
 countryinfo
 mal-api
 youtube-search-python
@@ -40,7 +39,6 @@ python-magic
 glitch_this
 PyGithub
 pytesseract
-youtube-dl
 opencv-contrib-python
 Telethon==1.19.0
 iplookup
