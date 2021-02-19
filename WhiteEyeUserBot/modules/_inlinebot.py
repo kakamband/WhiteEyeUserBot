@@ -683,5 +683,3 @@ async def inline_id_handler(event):
             await event.answer(results)
         except TypeError:
             pass
-
-   
