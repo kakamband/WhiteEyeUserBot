@@ -3,6 +3,7 @@ deezer-python
 moviepy
 google-trans-new
 img2pdf
+eyed3
 pymediainfo
 apscheduler
 youtube_dl
