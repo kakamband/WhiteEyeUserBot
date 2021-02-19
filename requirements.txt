@@ -1,4 +1,4 @@
-#sup
+pornhub-api
 Pillow
 deezer-python
 moviepy
@@ -36,7 +36,6 @@ pandas
 fontTools
 pydub
 quote
-#hehe
 lottie
 textblob
 python-magic
