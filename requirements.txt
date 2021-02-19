@@ -34,6 +34,7 @@ pandas
 fontTools
 pydub
 quote
+#hehe
 lottie
 textblob
 python-magic
