@@ -1,6 +1,17 @@
-<p align="center"><a href="https://t.me/WhiteEyeOT"><img src="https://telegra.ph/file/e41d27e913a961d105d4d.jpg" width="5000"></a></p> 
-<h1 align="center"><b>WHITEEYE-USERBOT 🇮🇳 </b></h1>
-<h4 align="center">A Powerful, Smart And Simple Userbot In Telethon.</h4>
+# Telethon Userbot
+![Python Version](https://img.shields.io/badge/Python-v3.8-blue)
+![Repo Size](https://img.shields.io/github/repo-size/WhiteEye-Org/WhiteEyeUserBot)
+[![Commit Activity](https://img.shields.io/github/commit-activity/w/WhiteEye-Org/WhiteEyeUserBot)](https://github.com/WhiteEye-Org/WhiteEyeUserBot/pulse)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b10d40c60fc549299eeb7bda1c7501aa)](https://app.codacy.com/manual/WhiteEye-Org/WhiteEyeUserBot?utm_source=github.com&utm_medium=referral&utm_content=athphane/userbot&utm_campaign=Badge_Grade_Settings)
+[![HitCount](http://hits.dwyl.com/WhiteEye-Org/WhiteEyeUserBot.svg)](http://hits.dwyl.com/WhiteEye-Org/WhiteEyeUserBot)
+[![Contributors](https://img.shields.io/github/contributors/WhiteEye-Org/WhiteEyeUserBot)](https://github.com/WhiteEye-Org/WhiteEyeUserBot/graphs/contributors)
+![Last Commit](https://img.shields.io/github/last-commit/WhiteEye-Org/WhiteEyeUserBot/master)
+![Issues](https://img.shields.io/github/issues/WhiteEye-Org/WhiteEyeUserBot)
+![Pull Requests](https://img.shields.io/github/issues-pr/WhiteEye-Org/WhiteEyeUserBot)
+[![StyleCI](https://github.styleci.io/repos/216083990/shield?branch=master)](https://github.styleci.io/repos/216083990)
+[![License](https://img.shields.io/github/license/WhiteEye-Org/WhiteEyeUserBot)](LICENSE)
+
+<img src="https://telegra.ph/file/e41d27e913a961d105d4d.jpg" width="160" align="right">
 
 
 
