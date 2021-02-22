@@ -1,4 +1,4 @@
-# Telethon Userbot
+# WhiteEyeUserBot
 ![Python Version](https://img.shields.io/badge/Python-v3.8-blue)
 ![Repo Size](https://img.shields.io/github/repo-size/WhiteEye-Org/WhiteEyeUserBot)
 [![Commit Activity](https://img.shields.io/github/commit-activity/w/WhiteEye-Org/WhiteEyeUserBot)](https://github.com/WhiteEye-Org/WhiteEyeUserBot/pulse)
@@ -11,7 +11,7 @@
 [![StyleCI](https://github.styleci.io/repos/216083990/shield?branch=master)](https://github.styleci.io/repos/216083990)
 [![License](https://img.shields.io/github/license/WhiteEye-Org/WhiteEyeUserBot)](LICENSE)
 
-<img src="https://telegra.ph/file/e41d27e913a961d105d4d.jpg" width="190" align="right">
+<img src="https://telegra.ph/file/28d9b7eb6ef941325bc64.jpg" width="190" align="right">
 
 
 
