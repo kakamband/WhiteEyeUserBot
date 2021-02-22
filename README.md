@@ -11,7 +11,7 @@
 [![StyleCI](https://github.styleci.io/repos/216083990/shield?branch=master)](https://github.styleci.io/repos/216083990)
 [![License](https://img.shields.io/github/license/WhiteEye-Org/WhiteEyeUserBot)](LICENSE)
 
-<img src="https://telegra.ph/file/e41d27e913a961d105d4d.jpg" width="160" align="right">
+<img src="https://telegra.ph/file/e41d27e913a961d105d4d.jpg" width="190" align="right">
 
 
 
