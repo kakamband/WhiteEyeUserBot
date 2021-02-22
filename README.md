@@ -50,7 +50,7 @@
 [![Deploy To Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/WhiteEye-Org/WhiteEyeUserBot)
 # String
 
-[![Run on Repl.it](https://telegra.ph/file/71f07091512ebcdce11c9.png)](https://repl.it/@mrdayamzaidi/WhiteEyeUserbot)
+[![Run on Repl.it](https://telegra.ph/file/e41d27e913a961d105d4d.jpg)](https://repl.it/@mrdayamzaidi/WhiteEyeUserbot)
 
 
 
