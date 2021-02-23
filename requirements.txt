@@ -1,10 +1,9 @@
 Pillow
-deezer-python
-moviepy
 google-trans-new
-eyed3
 img2pdf
 pymediainfo
+tinydb
+spotdl
 apscheduler
 youtube_dl
 git+https://github.com/WhiteEye-Org/maigret
@@ -19,7 +18,6 @@ tracemoepy
 deep_translator
 countryinfo
 mal-api
-youtube-search-python
 emoji-country-flag
 langdetect
 PyProxyToolkit
@@ -28,12 +26,10 @@ grapheme
 cryptosteganography
 QScintilla
 requests_html
-flask
 yahoo_fin
 anime_downloader
 pandas
 fontTools
-pydub
 quote
 lottie
 textblob
