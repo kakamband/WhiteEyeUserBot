@@ -26,7 +26,7 @@ from telethon import TelegramClient
 from telethon import __version__ as tv
 from telethon.tl.types import InputMessagesFilterDocument
 
-from WhiteEyeUserBot import bot, client2, client3
+from WhiteEyeUserBot import bot, client2, client3, WhiteEye_version
 from WhiteEyeUserBot.Configs import Config
 from WhiteEyeUserBot.utils import load_module, load_module_dclient, start_assistant
 
