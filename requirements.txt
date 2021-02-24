@@ -12,6 +12,7 @@ pyseoanalyzer
 fake_useragent
 rotten_tomatoes_client
 pygifsicle
+eyed3
 pokedex.py
 faker
 tracemoepy
