@@ -263,7 +263,7 @@ class Config(object):
         "UPSTREAM_REPO", "https://github.com/WhiteEye-Org/WhiteEyeUserBot"
     )
     ALIVE_IMAGE = os.environ.get(
-        "ALIVE_IMAGE", "https://telegra.ph/file/e41d27e913a961d105d4d.jpg"
+        "ALIVE_IMAGE", "https://telegra.ph/file/28d9b7eb6ef941325bc64.jpg"
     )
     ASSISTANT_START_PIC = os.environ.get(
         "ASSISTANT_START_PIC",
