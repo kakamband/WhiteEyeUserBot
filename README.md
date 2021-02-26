@@ -81,6 +81,7 @@ $ python(3) -m WhiteEyeUserBot
     [-] API_HASH :   You can get this value from https://my.telegram.org
     [-] STRING_SESSION : Your String Session, You can get this From Repl or BY running StringGen File Locally
     [-] TG_BOT_TOKEN_BF_HER : Your Bot Token Obtained From @BotFather 
+    [-] TG_BOT_USER_NAME_BF_HER : Your Bot UserName Obtained From @BotFather
     [-] PRIVATE_GROUP_ID : Id of group where you wanna log important logs, Private group is recommended for this
     [-] DATABASE_URL: Data Base Url, You Can Make You Own By Following This Tutorial - https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04, Else Get this from Elephant Sql, Or You can even make a heroku app to get Free DataBase.
 [+] The WhiteEyeUserBot will not work without setting the mandatory vars.
