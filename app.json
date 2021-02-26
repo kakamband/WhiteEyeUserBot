@@ -84,7 +84,7 @@
       "description": "Needed for inline buttons maker. Make a bot at @BotFather and get the token of your bot. Get it.",
       "value": ""
     },
-    "TG_BOT_USER_NAME_BF_HER": {
+    "TG_BOT_USERNAME": {
       "description": "You Telegram Bot API Key Here. Needed For Help Module And Cbutton.",
       "value": ""
     },
