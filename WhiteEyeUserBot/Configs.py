@@ -250,7 +250,7 @@ class Config(object):
     PRIVATE_GROUP_ID = int(os.environ.get("PRIVATE_GROUP_ID", False))
     PLUGIN_CHANNEL = int(os.environ.get("PLUGIN_CHANNEL", False))
     NEWS_CHANNEL_ID = int(os.environ.get("NEWS_CHANNEL_ID", False))
-    TG_BOT_USER_NAME_BF_HER = os.environ.get("TG_BOT_USER_NAME_BF_HER", None)
+    TG_BOT_USERNAME = os.environ.get("TG_BOT_USERNAME", None)
     JTM_CHANNEL_ID = int(os.environ.get("JTM_CHANNEL_ID", False))
     JTM_CHANNEL_USERNAME = os.environ.get("JTM_CHANNEL_USERNAME", None)
     FBAN_GROUP = int(os.environ.get("FBAN_GROUP", False))
