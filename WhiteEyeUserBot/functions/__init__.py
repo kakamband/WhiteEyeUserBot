@@ -13,7 +13,7 @@ import requests
 import wget
 from bs4 import BeautifulSoup
 
-# from fake_useragent import UserAgent
+from fake_useragent import UserAgent
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from PIL import Image
