@@ -44,13 +44,16 @@
 
 
 
-
 # DEPLOY
 
 [![Deploy To Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/WhiteEye-Org/WhiteEyeUserBot)
 # String
 
 [![Run on Repl.it](https://img.shields.io/badge/run-string__session.py-red?style=for-the-badge&logo=repl.it)](https://repl.it/@mrdayamzaidi/WhiteEyeUserbot)
+
+# DEPLOY TO UFFIZZI
+
+[![Deploy To Uffizzi](https://telegra.ph/file/2a2d0c14911f041484ad5.jpg)](https://app.uffizzi.com/dashboard)
 
 
 
