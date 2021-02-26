@@ -27,7 +27,7 @@ from WhiteEyeUserBot.utils import WhiteEye_on_cmd, sudo_cmd
 async def _(event):
     if event.fwd_from:
         return
-    bxt = Var.TG_BOT_USER_NAME_BF_HER
+    bxt = Var.TG_BOT_USERNAME
     try:
         tex = str(event.text[6:])
         await tgbot.send_message(event.chat_id, tex)
