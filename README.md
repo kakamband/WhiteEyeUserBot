@@ -27,7 +27,7 @@
 
 # Tutorial (Explained How To Deploy WhiteEyeUserBot With Tutorial Video)
 
-<a href="https://youtu.be/YztAfFPmmvI"><img src="https://img.shields.io/badge/HEROKU-TUTORIAL-brightgreen"></a> <a href="https://studio.youtube.com/channel/UCHzrSYy9-R594Ywgba_F7kQ/videos/upload?filter=%5B%5D&sort=%7B%22columnType%22%3A%22date%22%2C%22sortOrder%22%3A%22DESCENDING%22%7D"><img src="https://img.shields.io/badge/UFFIZZI-TUTORIAL-brightgreen"></a>
+<a href="https://youtu.be/2QkKREW0nOE"><img src="https://img.shields.io/badge/HEROKU-TUTORIAL-brightgreen"></a> <a href="https://studio.youtube.com/channel/UCHzrSYy9-R594Ywgba_F7kQ/videos/upload?filter=%5B%5D&sort=%7B%22columnType%22%3A%22date%22%2C%22sortOrder%22%3A%22DESCENDING%22%7D"><img src="https://img.shields.io/badge/UFFIZZI-TUTORIAL-brightgreen"></a>
 
 
 
