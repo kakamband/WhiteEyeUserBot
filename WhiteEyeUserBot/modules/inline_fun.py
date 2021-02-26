@@ -7,7 +7,7 @@ from WhiteEyeUserBot.utils import WhiteEye_on_cmd
 async def stats(event):
     if event.fwd_from:
         return
-    botusername = Config.TG_BOT_USER_NAME_BF_HER
+    botusername = Config.TG_BOT_USERNAME
     noob = "stats"
     if event.reply_to_msg_id:
         await event.get_reply_message()
