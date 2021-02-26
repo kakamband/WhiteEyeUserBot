@@ -25,7 +25,7 @@
 
 
 
-# Tutorial (Explained How To Deploy With Tutorila Video)
+# Tutorial (Explained How To Deploy WhiteEyeUserBot With Tutorial Video)
 
 <a href="https://youtu.be/YztAfFPmmvI"><img src="https://img.shields.io/badge/How%20To-Deploy-red.svg?logo=Youtube"></a>
 
