@@ -9,7 +9,7 @@ youtube_dl
 git+https://github.com/WhiteEye-Org/maigret
 git+https://github.com/WhiteEye-Org/howdoi
 pyseoanalyzer
-#fake_useragent
+fake_useragent
 rotten_tomatoes_client
 pygifsicle
 eyed3
