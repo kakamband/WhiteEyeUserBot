@@ -17,7 +17,7 @@ class Config(object):
     LESS_SPAMMY = os.environ.get("LESS_SPAMMY", None)
     HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
-    TG_BOT_TOKEN_BF_HER = os.environ.get("TG_BOT_TOKEN_BF_HER", None)
+    TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", None)
     # Send .get_id in any channel to fill this value.
     PLUGIN_CHANNEL = int(os.environ.get("PLUGIN_CHANNEL", -100))
     PRIVATE_GROUP_BOT_API_ID = int(os.environ.get("PRIVATE_GROUP_BOT_API_ID", -100))
