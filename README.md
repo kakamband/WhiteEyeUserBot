@@ -53,7 +53,7 @@
 
 # DEPLOY TO UFFIZZI
 
-[![Deploy To Uffizzi](https://telegra.ph/file/2a2d0c14911f041484ad5.jpg)](https://app.uffizzi.com/dashboard)
+[![Deploy To Uffizzi](https://img.shields.io/badge/-Deploy%20To%20Uffizzi-informational)](https://app.uffizzi.com/dashboard)
 
 
 
