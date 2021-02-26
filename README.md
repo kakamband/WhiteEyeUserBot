@@ -77,6 +77,7 @@ $ python(3) -m WhiteEyeUserBot
 # Mandatory Configs
 ```
 [+] Make Sure You Add All These Mandatory Vars. 
+    [-] ALIVE_NAME : Your Name Here
     [-] APP_ID:   You can get this value from https://my.telegram.org
     [-] API_HASH :   You can get this value from https://my.telegram.org
     [-] STRING_SESSION : Your String Session, You can get this From Repl or BY running StringGen File Locally
